@@ -8,15 +8,52 @@ Esta guía está redactada como un libro de texto para que tú (el creador) enti
 
 # 📖 ÍNDICE
 
-1. [El Ecosistema (La Perspectiva Global)](#1-el-ecosistema-la-perspectiva-global)
-2. [El Backend (El Cerebro)](#2-el-backend-el-cerebro)
-3. [El Frontend (Los Ojos y las Manos)](#3-el-frontend-los-ojos-y-las-manos)
-4. [La Magia Técnica Nivel Senior](#4-la-magia-técnica-nivel-senior)
-5. [Seguridad y Control de Acceso](#5-seguridad-y-control-de-acceso)
-6. [Resumen del Estilo (Aesthetics & CSS)](#6-resumen-del-estilo-aesthetics--css)
-7. [Guías de Implementación Paso a Paso (Tutoriales Core)](#7-guías-de-implementación-paso-a-paso-tutoriales-core) 🆕
+1. [Arquitectura Técnica (Capas)](#arquitectura-técnica-del-ecosistema) 🆕
+2. [El Ecosistema (La Perspectiva Global)](#1-el-ecosistema-la-perspectiva-global)
+3. [El Backend (El Cerebro)](#2-el-backend-el-cerebro)
+4. [El Frontend (Los Ojos y las Manos)](#3-el-frontend-los-ojos-y-las-manos)
+5. [La Magia Técnica Nivel Senior](#4-la-magia-técnica-nivel-senior)
+6. [Seguridad y Control de Acceso](#5-seguridad-y-control-de-acceso)
+7. [Resumen del Estilo (Aesthetics & CSS)](#6-resumen-del-estilo-aesthetics--css)
+8. [Guías de Implementación Paso a Paso](#7-guías-de-implementación-paso-a-paso-tutoriales-core)
 
 ---
+
+# 🏗️ Arquitectura Técnica del Ecosistema
+
+Para entender cómo fluye la información en este sistema, visualízalo como una estructura de capas interconectadas. Cada capa protege y sirve a la superior:
+
+### Estructura del Framework
+```text
+┌─────────────────────────────────────────────────────────────┐
+│ Capa 3: Presentación (Angular Frontend)                      │
+│  • Standalone Components (Proyectos, Home, Admin)           │
+│  • UX Premium: Glassmorphism, Neon Shadows, Temas Dinámicos │
+│  • Terminal en Vivo interactuando vía event-stream (SSE)    │
+└────────────────────────┬────────────────────────────────────┘
+                         │ Solicitudes API / SSE ↓
+┌────────────────────────┴────────────────────────────────────┐
+│ Capa 2: Comunicación (Servicios de Datos)                   │
+│  • DataService (Hub centralizado de comunicación)           │
+│  • Interceptores (Inyección automática de JWT Auth)         │
+│  • ConfigService (Gestión de Estado de Temas y Colores)     │
+└────────────────────────┬────────────────────────────────────┘
+                         │ Lógica de Negocio ↓
+┌────────────────────────┴────────────────────────────────────┐
+│ Capa 1: Lógica Core (NestJS Backend)                        │
+│  • Controladores (Endpoints REST y Streams de Datos)        │
+│  • Servicios (Gestión de CRUD, Lógica del Test Runner)      │
+│  • Guardias de Seguridad (Autenticación JWT)                │
+└────────────────────────┬────────────────────────────────────┘
+                         │ Acceso a Datos ↓
+┌────────────────────────┴────────────────────────────────────┐
+│ Capa 0: Infraestructura y Persistencia                      │
+│  • MongoDB (Esquemas de Mongoose y Relaciones Dinámicas)    │
+│  • Almacenamiento (Integración con Cloudinary)               │
+│  • Seguridad (Utilidad de Cifrado AES-256-CBC)               │
+│  • OS Bridge (ChildProcess para ejecución de Tests CI/CD)   │
+└──────────────────────────────────────────────────────────────┘
+```
 
 # 1. El Ecosistema (La Perspectiva Global)
 
