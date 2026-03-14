@@ -1,0 +1,107 @@
+<div class="admin-wrapper animate">
+  <!-- Sidebar Overlay (Mobile only) -->
+  <div class="sidebar-overlay" *ngIf="isSidebarOpen" (click)="closeSidebar()"></div>
+
+  <!-- Sidebar -->
+  <aside class="admin-sidebar glass" [class.open]="isSidebarOpen">
+    <div class="sidebar-header">
+      <h3>Admin<span>Hub</span></h3>
+      <button class="close-sidebar-btn" (click)="closeSidebar()">×</button>
+    </div>
+    <nav class="sidebar-nav">
+      <a routerLink="/admin" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">📊</span> <span>Dashboard</span>
+      </a>
+      <a routerLink="/admin/projects" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">💼</span> <span>Proyectos</span>
+      </a>
+      <a routerLink="/admin/stacks" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">🛠</span> <span>Stacks</span>
+      </a>
+      <a routerLink="/admin/soft-skills" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">🌟</span> <span>Soft Skills</span>
+      </a>
+      <a routerLink="/admin/testimonials" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">💬</span> <span>Testimonios</span>
+      </a>
+      <a routerLink="/admin/messages" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">✉️</span> <span>Mensajes</span>
+      </a>
+      <a routerLink="/admin/comments" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">💬</span> <span>Comentarios</span>
+      </a>
+      <a routerLink="/admin/icons" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">🖼️</span> <span>Librería de Iconos</span>
+      </a>
+      <a routerLink="/admin/profile" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">👤</span> <span>Mi Perfil</span>
+      </a>
+      <a routerLink="/admin/settings" routerLinkActive="active" class="nav-item" (click)="closeSidebar()">
+        <span class="icon">⚙️</span> <span>Ajustes del Sitio</span>
+      </a>
+
+    </nav>
+    <div class="sidebar-footer">
+      <button class="ghost-btn sm full-width" (click)="logout()">Cerrar Sesión</button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="admin-main">
+    <header class="admin-header glass">
+        <div class="header-left">
+            <button class="sidebar-toggle" (click)="toggleSidebar()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="breadcrumb">
+                <span>Admin</span> / <span>Panel</span>
+            </div>
+        </div>
+        <div class="user-info" *ngIf="auth.currentUser$ | async as user">
+            <span>{{ user.email }}</span>
+        </div>
+    </header>
+
+    <section class="admin-content">
+      <!-- DASHBOARD OVERVIEW (Only if no child route active) -->
+       <div *ngIf="isDashboardHome()" class="dashboard-overview animate">
+          <div class="section-header">
+            <h1>Bienvenido de Nuevo, <span>Matías</span></h1>
+            <p>Aquí tienes un resumen del estado actual de tu portafolio.</p>
+          </div>
+
+          <div class="dashboard-grid">
+            <div class="glass stat-card">
+              <div class="stat-icon">📁</div>
+              <div class="stat-content">
+                <h3>Proyectos Activos</h3>
+                <p class="stat-num">{{ projectsCount }}</p>
+                <button class="glow-link" routerLink="/admin/projects">Gestionar →</button>
+              </div>
+            </div>
+            <div class="glass stat-card">
+              <div class="stat-icon">💬</div>
+              <div class="stat-content">
+                <h3>Testimonios Pendientes</h3>
+                <p class="stat-num">{{ pendingTestimonials }}</p>
+                <button class="glow-link" routerLink="/admin/testimonials">Revisar →</button>
+              </div>
+            </div>
+            <div class="glass stat-card">
+              <div class="stat-icon">✉️</div>
+              <div class="stat-content">
+                <h3>Mensajes Recibidos</h3>
+                <p class="stat-num">{{ contactCount }}</p>
+                <button class="glow-link" routerLink="/admin/messages">Ver Todos →</button>
+              </div>
+            </div>
+          </div>
+       </div>
+
+       <!-- CHILD ROUTES -->
+       <router-outlet></router-outlet>
+    </section>
+  </main>
+</div>

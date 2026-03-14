@@ -1,0 +1,38 @@
+<div class="terminal-overlay" (click)="onClose()">
+  <div class="terminal-window animate" (click)="$event.stopPropagation()">
+    <div class="terminal-header">
+      <div class="terminal-controls">
+        <div class="control red"></div>
+        <div class="control yellow"></div>
+        <div class="control green"></div>
+      </div>
+      <div class="terminal-title">Live Test: {{ projectName }}</div>
+      <div class="terminal-close" (click)="onClose()" style="cursor: pointer; color: #a0a0b0;">×</div>
+    </div>
+
+    <div class="terminal-body" #terminalBody>
+      <!-- Real-Time Logs from SSE -->
+      <div *ngFor="let log of logs" class="log-line" [ngClass]="log.type">
+        <ng-container *ngIf="log.type === 'cmd'">$ </ng-container>
+        {{ log.text }}
+      </div>
+
+      <!-- Spinner while running -->
+      <div class="running-indicator" *ngIf="!simulationFinished" style="margin-top: 20px; color: #6366f1;">
+        <span>⏳ Ejecutando comandos en servidor real...</span>
+      </div>
+
+      <!-- Final Stats -->
+      <div class="final-screen" *ngIf="simulationFinished" style="margin-top: 20px;">
+        <span class="final-icon" *ngIf="!logs[logs.length-1]?.type?.includes('error') && !logs[logs.length-1]?.text?.includes('failed') && !logs[logs.length-1]?.text?.includes('Error')">✅</span>
+        <span class="final-icon" *ngIf="logs[logs.length-1]?.type?.includes('error') || logs[logs.length-1]?.text?.includes('failed') || logs[logs.length-1]?.text?.includes('Error')">❌</span>
+        <h3 class="final-title">Ejecución Finalizada</h3>
+        <p class="final-stats">Tiempo Total: {{ executionTime }}ms</p>
+      </div>
+    </div>
+
+    <div class="close-footer" *ngIf="simulationFinished">
+      <button class="glow-btn" (click)="onClose()">Cerrar Terminal</button>
+    </div>
+  </div>
+</div>

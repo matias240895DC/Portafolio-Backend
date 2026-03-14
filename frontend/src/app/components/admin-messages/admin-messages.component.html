@@ -1,0 +1,43 @@
+<div class="admin-page-header">
+  <h2>Mensajes <span>Recibidos</span></h2>
+</div>
+
+<div class="glass table-container animate">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Email</th>
+        <th>Empresa</th>
+        <th>Mensaje</th>
+        <th>Fecha</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let m of messages" [class.unread]="!m.read">
+        <td>{{ m.name }}</td>
+        <td>{{ m.email }}</td>
+        <td>{{ m.company }}</td>
+        <td class="message-cell">{{ m.message }}</td>
+        <td>{{ m.createdAt | date:'short' }}</td>
+        <td>
+          <span [class]="'badge ' + (m.read ? 'active' : 'inactive')">
+            {{ m.read ? 'Leído' : 'Nuevo' }}
+          </span>
+        </td>
+        <td>
+          <div class="table-actions">
+            <button *ngIf="!m.read" class="action-btn toggle" (click)="markRead(m._id)" title="Marcar como leído">
+              <span class="icon">👁️</span>
+            </button>
+            <button class="action-btn delete" (click)="delete(m._id)" title="Eliminar">
+              <span class="icon">🗑</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

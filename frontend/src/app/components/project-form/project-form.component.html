@@ -1,0 +1,150 @@
+<div class="form-tabs">
+  <button type="button" class="tab-btn" [class.active]="activeTab === 'general'" (click)="setTab('general')">Información General</button>
+  <button type="button" class="tab-btn" [class.active]="activeTab === 'tech-stack'" (click)="setTab('tech-stack')">Tecnologías (Stack)</button>
+  <button type="button" class="tab-btn" [class.active]="activeTab === 'case-study'" (click)="setTab('case-study')">Caso de Éxito (Senior)</button>
+  <button type="button" class="tab-btn" [class.active]="activeTab === 'cicd'" (click)="setTab('cicd')">CI/CD & Secretos</button>
+</div>
+
+<form [formGroup]="projectForm" (ngSubmit)="onSubmit()" class="admin-form">
+  <!-- GENERAL TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'general'">
+    <div class="project-upload-section">
+        <div class="project-img-preview" (click)="fileInput.click()">
+            <img *ngIf="projectForm.get('imageUrl')?.value" [src]="projectForm.get('imageUrl')?.value" alt="Preview">
+            <div class="no-img" *ngIf="!projectForm.get('imageUrl')?.value">
+                <span class="icon">📷</span>
+                <p>Subir Portada</p>
+            </div>
+            <div class="preview-overlay">Cambiar Imagen</div>
+        </div>
+        <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*">
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Nombre del Proyecto</label>
+        <input type="text" formControlName="name" placeholder="Ej: E-commerce API">
+      </div>
+      <div class="form-group">
+        <label>Ranking (1-5)</label>
+        <input type="number" formControlName="ranking" min="1" max="5">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>GitHub URL</label>
+        <input type="text" formControlName="githubUrl" placeholder="Repo link">
+      </div>
+      <div class="form-group">
+        <label>Demo/Swagger URL</label>
+        <input type="text" formControlName="swaggerUrl" placeholder="API documentation link">
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+          <label>Deploy URL (Live App)</label>
+          <input type="text" formControlName="deployUrl" placeholder="https://mi-app.com">
+      </div>
+      <div class="form-check" style="margin-top: 25px;">
+          <input type="checkbox" formControlName="active" id="active">
+          <label for="active">Proyecto Visible</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Lenguajes Utilizados (Ej: TypeScript, Python - Separa por comas)</label>
+      <input type="text" formControlName="languagesRaw" placeholder="TypeScript, SQL, HTML">
+    </div>
+
+    <div class="form-group">
+      <label>Resumen / Descripción</label>
+      <textarea formControlName="description" rows="2" placeholder="Breve descripción..."></textarea>
+    </div>
+  </div>
+
+  <!-- TECH STACK TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'tech-stack'">
+    <div class="form-group">
+      <label>Seleccionar Tecnologías Existentes</label>
+      <div class="stack-selection-header">
+        <select #stackSelect (change)="addStackById(stackSelect.value); stackSelect.value = ''">
+          <option value="">-- Elige una herramienta --</option>
+          <option *ngFor="let stack of availableStacks" [value]="stack._id" [disabled]="isStackSelected(stack._id)">
+            {{ stack.name }} {{ isStackSelected(stack._id) ? '(Ya añadida)' : '' }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Herramientas Seleccionadas</label>
+      <div class="stack-selector-container">
+        <div class="stack-selector" *ngIf="selectedStackIds.length > 0">
+          <div 
+            *ngFor="let stackId of selectedStackIds" 
+            class="stack-chip selected" 
+            (click)="toggleStack(stackId)"
+          >
+            {{ getStackName(stackId) }}
+            <span class="remove-icon">×</span>
+          </div>
+        </div>
+        <p class="no-stacks-msg" *ngIf="selectedStackIds.length === 0">No hay herramientas seleccionadas.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CASE STUDY TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'case-study'">
+    <div class="form-group">
+      <label>El Desafío (Challenge)</label>
+      <textarea formControlName="challenge" rows="4" placeholder="Qué problema difícil resolviste..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>La Solución (Solution)</label>
+      <textarea formControlName="solution" rows="4" placeholder="Cómo lo resolviste (arquitectura, lógica)..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>El Impacto (Impact)</label>
+      <textarea formControlName="impact" rows="4" placeholder="Resultado: velocidad, orden, ahorro..."></textarea>
+    </div>
+
+    <div class="form-group">
+      <label>URL Diagrama de Arquitectura (Opcional)</label>
+      <input type="text" formControlName="architectureUrl" placeholder="Link a Cloudcraft, Figma o Imagen">
+    </div>
+  </div>
+
+  <!-- CI/CD SECRETS TAB -->
+  <div class="tab-content" *ngIf="activeTab === 'cicd'">
+    <div class="glass-alert warning" style="margin-bottom: 20px;">
+        <span class="icon">🔐</span>
+        <div>
+            <strong>Zona Segura:</strong> Estas variables se guardan con cifrado **AES-256-CBC**. 
+            Solo se usarán para inyectar un archivo `.env` durante las pruebas automatizadas.
+        </div>
+    </div>
+
+    <div class="form-group">
+      <label>Variables de Entorno (.env content)</label>
+      <textarea 
+        formControlName="envVariables" 
+        rows="10" 
+        placeholder="DATABASE_URL=...&#10;API_KEY=...&#10;DEBUG=true"
+        style="font-family: monospace; font-size: 0.85rem;"
+      ></textarea>
+      <small style="color: var(--text-dim); margin-top: 8px; display: block;">
+          Pega aquí el contenido de tu archivo .env. Será inyectado automáticamente en la raíz del proyecto antes de correr los tests.
+      </small>
+    </div>
+  </div>
+
+  <div class="form-actions side-by-side">
+    <button type="button" class="ghost-btn sm" (click)="onClose()">Cancelar</button>
+    <button type="submit" class="glow-btn sm">Guardar Proyecto</button>
+  </div>
+</form>

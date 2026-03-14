@@ -1,0 +1,134 @@
+<div class="home-container">
+  <!-- Hero Section -->
+  <section class="hero animate">
+    <div class="hero-content" *ngIf="configService.config$ | async as config">
+      <div class="hero-avatar" *ngIf="profile?.avatarUrl">
+        <img [src]="profile.avatarUrl" alt="Matías">
+      </div>
+      <h3 class="accent-text">{{ config.heroTitle1 }}</h3>
+      <h1 [innerHTML]="config.heroTitle2"></h1>
+      <p class="hero-sub">{{ config.heroDescription }}</p>
+
+      <div class="hero-btns">
+        <a class="glow-btn" routerLink="/projects"
+          style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Ver Proyectos</a>
+        <button class="ghost-btn" routerLink="/contact">Contactar</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section animate" *ngIf="profile">
+    <div class="glass about-card">
+      <div class="about-header">
+        <div class="section-badge">DESCUBRE MÁS</div>
+        <h2>Sobre <span>Mí</span></h2>
+      </div>
+      <div class="about-content">
+        <div class="about-text-content">
+          <p class="about-text">{{ profile.about }}</p>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">🎓</div>
+            <div class="stat-info">
+              <span class="stat-value">{{ profile.yearsOfExperience }}+</span>
+              <span class="stat-label">Años de Experiencia</span>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🚀</div>
+            <div class="stat-info">
+              <span class="stat-value">{{ projects.length }}+</span>
+              <span class="stat-label">Desafíos Logrados</span>
+            </div>
+          </div>
+          <div class="stat-card" *ngIf="profile.languages && profile.languages.length > 0">
+            <div class="stat-icon">🌐</div>
+            <div class="stat-info">
+              <div class="lang-mini-list">
+                <div *ngFor="let lang of profile.languages" class="lang-mini-item">
+                  <div class="lang-mini-header">
+                    <img *ngIf="lang.icon" [src]="lang.icon" alt="LangIcon" class="lang-mini-icon">
+                    <span class="stat-value mini">{{ lang.name }}</span>
+                  </div>
+                  <span class="stat-label mini">{{ lang.level }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Soft Skills Section -->
+  <section id="skills" class="skills-section animate" *ngIf="softSkills.length > 0">
+    <div class="section-header">
+      <h2>Habilidades <span>Interpersonales</span></h2>
+      <p>Competencias que potencian mi trabajo técnico</p>
+    </div>
+    <div class="skills-carousel">
+      <div class="skill-pill" *ngFor="let s of softSkills" [style.--skill-color]="getSkillColor(s)">
+        <div class="skill-icon" *ngIf="s.iconLibrary?.url || s.icon">
+          <img [src]="s.iconLibrary?.url || s.icon" [alt]="s.name">
+        </div>
+        <span class="skill-name">{{ s.name }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tech Stacks Section -->
+  <section id="stacks" class="skills-section animate" *ngIf="stacks.length > 0">
+    <div class="section-header">
+      <h2>Mi <span>Stack</span> Tecnológico</h2>
+      <p>Herramientas y tecnologías que domino</p>
+    </div>
+    <div class="skills-carousel">
+      <div class="skill-pill" *ngFor="let s of stacks" [style.--skill-color]="getSkillColor(s)">
+        <div class="skill-icon" *ngIf="getStackIcon(s)">
+          <img [src]="getStackIcon(s)" [alt]="s.name">
+        </div>
+        <span class="skill-name">{{ s.name }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section id="projects" class="projects-section animate">
+    <div class="section-header">
+      <h2>Proyectos <span>Destacados</span></h2>
+      <p>Una selección de mis trabajos más recientes</p>
+    </div>
+    <div class="project-grid">
+      <app-project-list [projects]="projects"></app-project-list>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials" class="testimonials-section animate">
+    <div class="section-header">
+      <h2><span>Feedbacks</span> Reales</h2>
+      <p>Lo que otros dicen sobre mi trabajo</p>
+      <button class="glow-btn sm" routerLink="/feedback" style="margin-top: 20px;">Dejar Comentario</button>
+    </div>
+
+    <div class="testimonial-grid">
+      <div *ngFor="let t of testimonials" class="glass testimonial-card">
+        <div class="quote-icon">“</div>
+        <div class="testimonial-rating-stars">
+          <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="t.rating >= star">★</span>
+        </div>
+        <p class="t-msg">"{{ t.message }}"</p>
+        <div class="testimonial-footer">
+          <div class="t-avatar">{{ t.name.charAt(0) }}</div>
+          <div class="t-info">
+            <span class="t-name">{{ t.name }}</span>
+            <span class="t-company" *ngIf="t.company">{{ t.company }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,117 @@
+<div class="admin-page-header">
+  <h2>Ajustes del <span>Sitio</span></h2>
+  <button class="glow-btn" (click)="saveConfig()">✓ Guardar Configuración</button>
+</div>
+
+<div class="settings-grid animate">
+  <!-- General Site Info -->
+  <div class="glass settings-card">
+    <div class="card-header">
+      <h3>Identidad <span>&</span> Marca</h3>
+    </div>
+    <div class="admin-form">
+      <div class="logo-upload-section">
+        <label>Logo del Sitio (Imagen)</label>
+        <div class="logo-preview" (click)="logoInput.click()">
+          <img *ngIf="config.logoUrl" [src]="config.logoUrl" alt="Logo Preview">
+          <div class="no-logo" *ngIf="!config.logoUrl">📷</div>
+          <div class="overlay">Cambiar</div>
+        </div>
+        <input type="file" #logoInput (change)="onLogoSelected($event)" hidden accept="image/*">
+      </div>
+      <div class="form-group">
+        <label>Texto del Logo / Marca</label>
+        <input type="text" [(ngModel)]="config.logoText" placeholder="Ej: MiMarca.dev">
+      </div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="glass settings-card">
+    <div class="card-header">
+      <h3>Sección <span>Hero</span> (Portada)</h3>
+    </div>
+    <div class="admin-form">
+      <div class="form-group">
+        <label>Título Superior (Saludo)</label>
+        <input type="text" [(ngModel)]="config.heroTitle1" placeholder="Ej: Hola, soy Matías">
+      </div>
+      <div class="form-group">
+        <label>Título Principal (H1 - Soporta HTML o <span>tags</span>)</label>
+        <input type="text" [(ngModel)]="config.heroTitle2" placeholder="Ej: Back-end <span>Developer</span>">
+      </div>
+      <div class="form-group">
+        <label>Descripción / Bio Corta</label>
+        <textarea [(ngModel)]="config.heroDescription" rows="3"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <!-- Theme & Colors -->
+  <div class="glass settings-card theme-card">
+    <div class="card-header">
+      <h3>Tema <span>&</span> Apariencia</h3>
+    </div>
+    <div class="admin-form">
+      <div class="form-group">
+        <label>Modo de Tema</label>
+        <select [(ngModel)]="config.themeMode">
+          <option value="dark">Modo Oscuro</option>
+          <option value="light">Modo Claro</option>
+        </select>
+      </div>
+
+      <div class="color-grid">
+        <div class="form-group">
+          <label>Primario</label>
+          <div class="color-input-wrapper">
+            <input type="color" [(ngModel)]="activeTheme.primaryColor">
+            <span>{{ activeTheme.primaryColor }}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Secundario</label>
+          <div class="color-input-wrapper">
+            <input type="color" [(ngModel)]="activeTheme.secondaryColor">
+            <span>{{ activeTheme.secondaryColor }}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Acento</label>
+          <div class="color-input-wrapper">
+            <input type="color" [(ngModel)]="activeTheme.accentColor">
+            <span>{{ activeTheme.accentColor }}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Fondo</label>
+          <div class="color-input-wrapper">
+            <input type="color" [(ngModel)]="activeTheme.backgroundColor">
+            <span>{{ activeTheme.backgroundColor }}</span>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Texto</label>
+          <div class="color-input-wrapper">
+            <input type="color" [(ngModel)]="activeTheme.textColor">
+            <span>{{ activeTheme.textColor }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de Fondo</label>
+        <div class="toggle-group">
+          <button [class.active]="activeTheme.backgroundType === 'solid'" (click)="activeTheme.backgroundType = 'solid'">Sólido</button>
+          <button [class.active]="activeTheme.backgroundType === 'gradient'" (click)="activeTheme.backgroundType = 'gradient'">Gradiente</button>
+        </div>
+      </div>
+
+      <div class="form-group" *ngIf="activeTheme.backgroundType === 'gradient'">
+        <label>Gradiente CSS (Ej: linear-gradient(...))</label>
+        <textarea [(ngModel)]="activeTheme.backgroundGradient" rows="2" placeholder="linear-gradient(135deg, #0a0a0c 0%, #1a1a2e 100%)"></textarea>
+      </div>
+
+    </div>
+  </div>
+</div>

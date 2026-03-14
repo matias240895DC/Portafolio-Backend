@@ -1,0 +1,41 @@
+<div class="admin-page-header">
+  <h2>Gestión de <span>Testimonios</span></h2>
+</div>
+
+<div class="glass table-container animate">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Empresa</th>
+        <th>Puntuación</th>
+        <th>Mensaje</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let t of testimonials">
+        <td>{{ t.name }}</td>
+        <td>{{ t.company }}</td>
+        <td>{{ getStars(t.rating) }}</td>
+        <td class="message-cell">{{ t.message }}</td>
+        <td>
+          <span [class]="'badge ' + (t.approved ? 'active' : 'inactive')">
+            {{ t.approved ? 'Aprobado' : 'Pendiente' }}
+          </span>
+        </td>
+        <td>
+          <div class="table-actions">
+            <button *ngIf="!t.approved" class="action-btn toggle" (click)="approve(t._id)" title="Aprobar">
+              <span class="icon">✅</span>
+            </button>
+            <button class="action-btn delete" (click)="delete(t._id)" title="Eliminar">
+              <span class="icon">🗑</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

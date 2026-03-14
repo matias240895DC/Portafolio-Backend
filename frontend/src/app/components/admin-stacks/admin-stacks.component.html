@@ -1,0 +1,115 @@
+<div class="admin-page-header">
+  <h2>Gestión de <span>Tecnologías</span></h2>
+  <button class="glow-btn" (click)="addStack()">+ Agregar Stack</button>
+</div>
+
+<div class="glass table-container animate">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Icono</th>
+        <th>Nombre</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let s of stacks">
+        <td>
+            <div class="stack-icon-preview">
+                <img *ngIf="s.icon" [src]="s.icon" alt="Icon">
+                <span *ngIf="!s.icon" class="icon-placeholder">#</span>
+            </div>
+        </td>
+        <td class="tech-name">{{ s.name }}</td>
+        <td>
+          <span [class]="'badge ' + (s.status ? 'active' : 'inactive')">
+            {{ s.status ? 'Activo' : 'Inactivo' }}
+          </span>
+        </td>
+        <td>
+          <div class="table-actions">
+            <button class="action-btn edit" (click)="editStack(s)" title="Editar">
+              <span class="icon">✎</span>
+            </button>
+            <button class="action-btn toggle" (click)="toggleStack(s)" [title]="s.status ? 'Desactivar' : 'Activar'">
+              <span class="icon">{{ s.status ? '👁️' : '🚫' }}</span>
+            </button>
+            <button class="action-btn delete" (click)="deleteStack(s._id)" title="Eliminar">
+              <span class="icon">🗑</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal-overlay" *ngIf="showAddForm">
+    <div class="glass modal-content animate">
+        <div class="form-header">
+            <h3>{{ newStack.name ? 'Editar' : 'Nueva' }} Tecnología</h3>
+            <button class="close-btn" (click)="showAddForm = false">×</button>
+        </div>
+        
+        <div class="admin-form">
+            <div class="stack-upload-center">
+                <!-- Selected Icon Display -->
+                <div class="stack-preview-box" (click)="showIconPicker = !showIconPicker">
+                    <img *ngIf="newStack.icon" [src]="newStack.icon" alt="Icon preview">
+                    <div class="no-icon" *ngIf="!newStack.icon">
+                        <span class="cam-icon">🖼️</span>
+                    </div>
+                    <div class="preview-overlay">Librería</div>
+                </div>
+                
+                <!-- Library Selection Support -->
+                <div class="library-select-wrapper">
+                    <label>Imagen de la Librería</label>
+                    <div class="searchable-select" (click)="showIconPicker = !showIconPicker">
+                        <span class="selected-text">{{ getSelectedIconName() || 'Seleccionar de la librería...' }}</span>
+                        <span class="chevron">▼</span>
+                    </div>
+                    <button class="upload-link-btn" (click)="fileInput.click()">o subir un archivo nuevo</button>
+                    <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*">
+                </div>
+            </div>
+
+            <!-- Library Icon Picker (Enhanced as searchable) -->
+            <div class="icon-picker-popover glass animate" *ngIf="showIconPicker">
+                <div class="picker-header">
+                    <h4>Elegir Icono</h4>
+                    <button (click)="showIconPicker = false">×</button>
+                </div>
+                <div class="picker-search">
+                    <input type="text" [(ngModel)]="iconSearch" placeholder="Buscar icono..." (click)="$event.stopPropagation()">
+                </div>
+                <div class="picker-grid">
+                    <div *ngFor="let icon of filteredIcons()" class="picker-item" (click)="onIconSelected(icon)">
+                        <img [src]="icon.url" [alt]="icon.name" [title]="icon.name">
+                        <span>{{ icon.name }}</span>
+                    </div>
+                    <div *ngIf="filteredIcons().length === 0" class="empty-picker">No hay resultados</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Nombre de la Tecnología</label>
+                <input type="text" [(ngModel)]="newStack.name" placeholder="Ej: NestJS">
+            </div>
+
+            <div class="form-group">
+                <label>Color del Brillo (Hex)</label>
+                <div class="color-input-wrapper">
+                    <input type="color" [(ngModel)]="newStack.color" class="color-picker">
+                    <input type="text" [(ngModel)]="newStack.color" placeholder="#6366f1">
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button class="ghost-btn" (click)="showAddForm = false">Cancelar</button>
+                <button class="glow-btn" (click)="saveStack()">Guardar Tecnología</button>
+            </div>
+        </div>
+    </div>
+</div>

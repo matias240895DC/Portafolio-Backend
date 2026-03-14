@@ -1,0 +1,62 @@
+<div class="admin-page-header">
+    <h2>Librería de <span>Iconos</span></h2>
+    <p class="subtitle">Gestiona tus recursos visuales reutilizables</p>
+    <button class="glow-btn" (click)="addIcon()">+ Nuevo Icono</button>
+</div>
+
+<div class="glass table-container animate">
+    <div class="icons-grid">
+        <div *ngFor="let icon of icons" class="icon-card glass">
+            <div class="icon-preview">
+                <img [src]="icon.url" [alt]="icon.name">
+            </div>
+            <div class="icon-info">
+                <strong>{{ icon.name }}</strong>
+                <span>{{ icon.category }}</span>
+            </div>
+            <div class="icon-actions">
+                <button (click)="editIcon(icon)" title="Editar">✎</button>
+                <button (click)="deleteIcon(icon._id)" title="Eliminar">🗑</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showAddForm">
+    <div class="glass modal-content animate">
+        <div class="form-header">
+            <h3>{{ editingId ? 'Editar' : 'Nuevo' }} Icono</h3>
+            <button class="close-btn" (click)="showAddForm = false">×</button>
+        </div>
+        
+        <div class="admin-form">
+            <div class="upload-area" (click)="fileInput.click()">
+                <img *ngIf="newIcon.url" [src]="newIcon.url" class="preview-img">
+                <div *ngIf="!newIcon.url" class="upload-placeholder">
+                    <span>📷</span>
+                    <p>Subir Imagen</p>
+                </div>
+                <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>Nombre del Icono</label>
+                <input type="text" [(ngModel)]="newIcon.name" placeholder="Ej: NestJS o Bandera Argentina">
+            </div>
+
+            <div class="form-group">
+                <label>Categoría</label>
+                <select [(ngModel)]="newIcon.category">
+                    <option value="tech">Tecnología</option>
+                    <option value="lang">Idioma</option>
+                    <option value="other">Otros</option>
+                </select>
+            </div>
+
+            <div class="form-actions">
+                <button class="ghost-btn" (click)="showAddForm = false">Cancelar</button>
+                <button class="glow-btn" (click)="saveIcon()">Guardar en Librería</button>
+            </div>
+        </div>
+    </div>
+</div>

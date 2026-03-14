@@ -1,0 +1,103 @@
+<div class="admin-page-header">
+  <h2>Mi <span>Perfil</span></h2>
+  <button class="glow-btn" (click)="saveProfile()">✓ Guardar Cambios</button>
+</div>
+
+<div class="profile-cards-grid animate">
+    <!-- Card: Avatar & Bio -->
+    <div class="glass profile-card bio-card">
+        <div class="card-header">
+            <h3><span>Sobre</span> Mí</h3>
+        </div>
+        <div class="admin-form profile-layout">
+            <div class="avatar-upload-section">
+                <div class="avatar-preview" (click)="fileInput.click()">
+                    <img *ngIf="profile.avatarUrl" [src]="profile.avatarUrl" alt="Avatar Preview">
+                    <div class="no-avatar" *ngIf="!profile.avatarUrl">
+                        <span class="cam-icon">📷</span>
+                        <span class="no-photo-text">SIN FOTO</span>
+                    </div>
+                    <div class="overlay"><span class="icon">📷</span></div>
+                </div>
+                <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*">
+                <p class="upload-hint">Click para cambiar foto</p>
+            </div>
+            
+            <div class="form-group flex-1">
+                <textarea [(ngModel)]="profile.about" name="about" rows="12" placeholder="Tu bio profesional..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-col">
+        <!-- Card: Stats & Info -->
+        <div class="glass profile-card">
+            <div class="card-header">
+                <h3>Estadísticas <span>&</span> Info</h3>
+            </div>
+            <div class="admin-form">
+                <div class="form-group">
+                    <label>Años de Experiencia</label>
+                    <input type="number" [(ngModel)]="profile.yearsOfExperience" name="years">
+                </div>
+                <div class="form-group">
+                    <label>Teléfono</label>
+                    <input type="text" [(ngModel)]="profile.socialLinks.phone" name="phone">
+                </div>
+                <div class="form-group">
+                    <label>Email Público</label>
+                    <input type="email" [(ngModel)]="profile.socialLinks.email" name="email">
+                </div>
+            </div>
+        </div>
+
+        <!-- Card: Idiomas -->
+        <div class="glass profile-card">
+            <div class="card-header">
+                <h3><span>Idiomas</span> & Niveles</h3>
+                <button class="add-btn" (click)="$event.stopPropagation(); addLanguage()">+ Añadir</button>
+            </div>
+            <div class="admin-form languages-list">
+                <div *ngFor="let lang of profile.languages; let i = index" class="language-item">
+                    <div class="language-icon-thumb" (click)="langInput.click()">
+                        <img *ngIf="lang.icon" [src]="lang.icon" alt="Lang Icon">
+                        <span *ngIf="!lang.icon" class="icon-placeholder">🌐</span>
+                    </div>
+                    <input type="file" #langInput (change)="onLanguageIconSelected($event, i)" hidden accept="image/*">
+                    
+                    <div class="form-group flex-1">
+                        <input type="text" [(ngModel)]="lang.name" name="langName{{i}}" placeholder="Ejem: Inglés">
+                    </div>
+                    <div class="form-group flex-1">
+                        <input type="text" [(ngModel)]="lang.level" name="langLevel{{i}}" placeholder="Ejem: B2 Intermediate">
+                    </div>
+                    <button class="remove-btn" (click)="removeLanguage(i)">×</button>
+                </div>
+                <div *ngIf="!profile.languages || profile.languages.length === 0" class="empty-state">
+                    No has añadido idiomas aún.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card: Enlaces -->
+    <div class="glass profile-card">
+        <div class="card-header">
+            <h3>Enlaces <span>Externos</span></h3>
+        </div>
+        <div class="admin-form">
+            <div class="form-group">
+                <label>LinkedIn URL</label>
+                <input type="text" [(ngModel)]="profile.socialLinks.linkedin" name="linkedin">
+            </div>
+            <div class="form-group">
+                <label>URL de CV (PDF)</label>
+                <input type="text" [(ngModel)]="profile.socialLinks.cvUrl" name="cv">
+            </div>
+            
+            <div class="cv-status" *ngIf="profile.socialLinks.cvUrl">
+                <span class="status-dot"></span> CV Vinculado
+            </div>
+        </div>
+    </div>
+</div>

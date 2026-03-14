@@ -1,0 +1,61 @@
+<div class="contact-container animate">
+  <div class="contact-grid container">
+    <div class="glass contact-info">
+      <h3>Información de Contacto</h3>
+      
+      <div class="info-item" *ngIf="profile?.socialLinks?.email">
+        <label>Email</label>
+        <p>{{ profile.socialLinks.email }}</p>
+      </div>
+
+      <div class="info-item" *ngIf="profile?.socialLinks?.phone">
+        <label>Teléfono</label>
+        <p>{{ profile.socialLinks.phone }}</p>
+      </div>
+
+      <div class="info-item" *ngIf="profile?.socialLinks?.linkedin">
+        <label>LinkedIn</label>
+        <p><a [href]="profile.socialLinks.linkedin" target="_blank">{{ profile.socialLinks.linkedin | slice:0:30 }}...</a></p>
+      </div>
+
+      <div class="info-item">
+        <label>Ubicación</label>
+        <p>Misiones, Argentina</p>
+      </div>
+
+       <div class="cv-download" *ngIf="profile?.socialLinks?.cvUrl">
+          <button class="glow-btn" (click)="downloadCV()">Descargar CV</button>
+       </div>
+    </div>
+
+    <div class="glass contact-form">
+      <form (submit)="onSubmit($event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" [(ngModel)]="form.name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label>Compañía (Opcional)</label>
+            <input type="text" [(ngModel)]="form.company" name="company">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="form.email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea [(ngModel)]="form.message" name="message" rows="5" required></textarea>
+        </div>
+        
+
+        <button type="submit" class="glow-btn" [disabled]="submitting">
+          {{ submitting ? 'Enviando...' : 'Enviar Mensaje' }}
+        </button>
+        
+        <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+      </form>
+    </div>
+  </div>
+</div>

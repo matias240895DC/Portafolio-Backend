@@ -1,0 +1,73 @@
+.admin-page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.admin-page-header h2 span {
+    color: var(--primary);
+}
+
+.table-container {
+  overflow-x: auto;
+  padding: 10px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+  min-width: 900px;
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.admin-table th {
+  padding: 20px 16px;
+  color: var(--text-dim);
+  font-weight: 700;
+  border-bottom: 1px solid var(--glass-stroke);
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+}
+
+.admin-table td {
+  padding: 20px 16px;
+  border-bottom: 1px solid var(--glass-stroke);
+  vertical-align: middle;
+  color: var(--text-main);
+  font-weight: 500;
+}
+
+.message-cell {
+    max-width: 350px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--text-dim) !important;
+    font-size: 0.9rem;
+}
+
+.message-cell:hover {
+    white-space: normal;
+    overflow: visible;
+}
+
+.badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge.active { background: rgba(34, 211, 238, 0.15); color: var(--accent); }
+.badge.inactive { background: rgba(239, 68, 68, 0.15); color: #ef4444; }
+
+.table-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}

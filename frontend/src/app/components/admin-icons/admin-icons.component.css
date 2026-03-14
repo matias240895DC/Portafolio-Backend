@@ -1,0 +1,191 @@
+.admin-page-header {
+    margin-bottom: 30px;
+}
+
+.subtitle {
+    color: var(--text-dim);
+    margin-top: -10px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+.icons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 20px;
+    padding: 10px;
+}
+
+.icon-card {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    border: 1px solid var(--glass-stroke);
+}
+
+.icon-preview {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.02);
+    border-radius: 12px;
+}
+
+.icon-preview img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.icon-info {
+    text-align: center;
+}
+
+.icon-info strong {
+    display: block;
+    color: var(--text-main);
+    font-size: 0.9rem;
+}
+
+.icon-info span {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.icon-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.icon-actions button {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--glass-stroke);
+    color: var(--text-main);
+    width: 35px;
+    height: 35px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.icon-actions button:hover {
+    background: var(--primary);
+    border-color: var(--primary);
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+
+.modal-content {
+    width: 90%;
+    max-width: 480px;
+    max-height: 90vh;
+    padding: 35px;
+    border-radius: 24px;
+    position: relative;
+    overflow-y: auto;
+    background: var(--panel-bg);
+}
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.upload-area {
+    width: 100%;
+    height: 180px;
+    border: 2px dashed var(--glass-stroke);
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    transition: var(--transition);
+}
+
+.upload-area:hover {
+    border-color: var(--primary);
+    background: rgba(255,255,255,0.08);
+}
+
+.preview-img {
+    height: 70%;
+    object-fit: contain;
+}
+
+.upload-placeholder {
+    text-align: center;
+    color: var(--text-dim);
+}
+
+.upload-placeholder span { font-size: 2rem; }
+
+.form-group label {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    background: var(--panel-bg);
+    border: 1px solid var(--glass-stroke);
+    padding: 12px 15px;
+    border-radius: 12px;
+    color: var(--text-main);
+    outline: none;
+    cursor: pointer;
+}
+
+.form-group select option {
+    background: #1a1a1a;
+    color: white;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.form-actions button {
+    flex: 1;
+}

@@ -1,0 +1,21 @@
+<div class="gallery-container animate">
+  <div class="container">
+    <div class="section-header">
+      <h1 class="gallery-title">Galería de <span>Proyectos</span></h1>
+    </div>
+
+    <div *ngIf="loading" class="loader-container">
+      <div class="loader"></div>
+      <p>Cargando proyectos...</p>
+    </div>
+
+    <div *ngIf="!loading && projects.length === 0" class="no-projects">
+      <p>No hay proyectos activos por el momento.</p>
+      <button class="glow-btn" routerLink="/">Volver al Inicio</button>
+    </div>
+
+    <div class="project-grid" *ngIf="!loading && projects.length > 0">
+      <app-project-list [projects]="projects"></app-project-list>
+    </div>
+  </div>
+</div>

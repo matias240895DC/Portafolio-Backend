@@ -1,0 +1,62 @@
+<div class="feedback-container animate">
+  <div class="feedback-grid container">
+    <div class="glass feedback-info">
+      <h3>¿Por qué dejar feedback?</h3>
+
+      <div class="info-item">
+        <p>Tu testimonio ayuda a otros clientes a conocer mi forma de trabajar y la calidad de mis soluciones.</p>
+      </div>
+
+      <div class="info-item">
+        <label>Proceso</label>
+        <p>Una vez enviado, revisaré tu comentario y lo publicaré en la sección de testimonios del Home.</p>
+      </div>
+
+      <div class="info-item">
+        <label>Valoración</label>
+        <p>Tu puntuación es fundamental para mantener mis estándares de calidad.</p>
+      </div>
+
+      <div class="cv-download">
+        <button class="ghost-btn" routerLink="/">Volver al Home</button>
+      </div>
+    </div>
+
+    <div class="glass feedback-form">
+      <form (submit)="onSubmit($event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nombre</label>
+            <input type="text" [(ngModel)]="form.name" name="name" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label>Compañía (Opcional)</label>
+            <input type="text" [(ngModel)]="form.company" name="company" placeholder="Empresa o proyecto">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" [(ngModel)]="form.email" name="email" required placeholder="tu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Mensaje</label>
+          <textarea [(ngModel)]="form.message" name="message" rows="5" required
+            placeholder="Cuéntame tu experiencia trabajando conmigo..."></textarea>
+        </div>
+
+        <div class="form-group rating-selector">
+          <label>Tu valoración</label>
+          <div class="stars-input">
+            <span *ngFor="let s of [1,2,3,4,5]" (click)="form.rating = s" [class.active]="form.rating >= s">★</span>
+          </div>
+        </div>
+
+        <button type="submit" class="glow-btn" [disabled]="submitting">
+          {{ submitting ? 'Enviando...' : 'Enviar Feedback' }}
+        </button>
+
+        <div *ngIf="successMsg" class="success-msg">{{ successMsg }}</div>
+      </form>
+    </div>
+  </div>
+</div>

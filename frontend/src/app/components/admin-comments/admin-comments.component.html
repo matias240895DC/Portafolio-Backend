@@ -1,0 +1,30 @@
+<div class="admin-page-header">
+  <h2>Gestión de <span>Comentarios de Proyectos</span></h2>
+</div>
+
+<div class="glass table-container animate">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Proyecto</th>
+        <th>Autor</th>
+        <th>Comentario</th>
+        <th>Fecha</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let c of comments">
+        <td><strong>{{ c.projectId?.name || 'Desconocido' }}</strong></td>
+        <td>{{ c.name }}</td>
+        <td class="comment-cell">{{ c.content }}</td>
+        <td>{{ c.createdAt | date:'short' }}</td>
+        <td class="table-actions">
+          <button class="action-btn delete" (click)="deleteComment(c._id)" title="Eliminar">
+            <span class="icon">🗑</span>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

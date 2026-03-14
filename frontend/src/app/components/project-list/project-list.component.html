@@ -1,0 +1,109 @@
+<div class="grid">
+  <div *ngFor="let p of projects" class="glass project-card animate">
+    <div class="project-img-container" *ngIf="p.imageUrl">
+      <img [src]="p.imageUrl" [alt]="p.name">
+    </div>
+    <div class="project-info">
+      <div class="project-header">
+        <div class="rank">⭐ {{ p.ranking }}</div>
+        <div class="likes" (click)="likeProject(p)">
+          <span class="icon">❤️</span> {{ p.likes || 0 }}
+        </div>
+      </div>
+      <h3>{{ p.name }}</h3>
+      <p class="project-desc">{{ p.description }}</p>
+
+      <!-- Technical Achievements / Case Study Area -->
+      <div class="technical-achievements" *ngIf="p.challenge || p.solution || p.impact">
+        <div class="achievement-item" *ngIf="p.challenge">
+          <label>🚨 Desafío</label>
+          <p>{{ p.challenge }}</p>
+        </div>
+        <div class="achievement-item" *ngIf="p.solution">
+          <label>💡 Solución</label>
+          <p>{{ p.solution }}</p>
+        </div>
+        <div class="achievement-item" *ngIf="p.impact">
+          <label>📈 Impacto</label>
+          <p>{{ p.impact }}</p>
+        </div>
+      </div>
+
+      <div class="stacks" *ngIf="p.stacks && p.stacks.length > 0">
+        <label class="info-label">Tecnologías:</label>
+        <span *ngFor="let st of p.stacks" class="stack-tag">{{ st.name }}</span>
+      </div>
+
+      <div class="languages" *ngIf="p.languages && p.languages.length > 0">
+        <span *ngFor="let lang of p.languages" class="lang-tag">{{ lang }}</span>
+      </div>
+
+
+      <div class="project-footer">
+        <div class="project-links">
+          <a [href]="p.deployUrl" target="_blank" *ngIf="p.deployUrl" class="link-icon">🚀 Deploy</a>
+          <a [href]="p.githubUrl" target="_blank" *ngIf="p.githubUrl" class="link-icon">GitHub</a>
+          <a [href]="p.swaggerUrl" target="_blank" *ngIf="p.swaggerUrl" class="link-icon">Swagger</a>
+        </div>
+
+        <div class="project-actions">
+          <button class="action-btn-premium blueprint" *ngIf="p.architectureUrl" (click)="viewArchitecture(p)"
+            title="Ver Arquitectura">
+            📐 Blueprint
+          </button>
+          <button class="action-btn-premium tests" *ngIf="p.testSuite && p.testSuite.length > 0"
+            (click)="runTests(p, 'backend')">
+            ⚙️ Test backend
+          </button>
+          <button class="action-btn-premium tests" *ngIf="p.testSuite && p.testSuite.length > 0"
+            (click)="runTests(p, 'frontend')">
+            🖥️ Test frontend
+          </button>
+          <button class="ghost-btn sm" (click)="toggleComments(p._id)">
+            💬 Comentarios.
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Comments Section -->
+      <div class="comments-section animate" *ngIf="activeProjectComments === p._id">
+        <div class="comments-list">
+          <div *ngFor="let c of comments" class="comment-item">
+            <header><strong>{{ c.name }}</strong> <span>{{ c.createdAt | date:'short' }}</span></header>
+            <p>{{ c.content }}</p>
+          </div>
+          <p *ngIf="comments.length === 0" class="no-comments">Sé el primero en comentar...</p>
+        </div>
+
+        <form (submit)="addComment(p._id)" class="comment-form">
+          <input type="text" [(ngModel)]="newComment.name" name="name" placeholder="Tu nombre" required>
+          <textarea [(ngModel)]="newComment.content" name="content" placeholder="Escribe un comentario..." rows="2"
+            required></textarea>
+          <button type="submit" class="glow-btn sm">Publicar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- High-End Feature Modals -->
+<app-test-runner-modal *ngIf="showTestRunner" [projectName]="selectedProject?.name" [projectId]="selectedProject?._id"
+  [testTarget]="testTarget" [tests]="selectedProject?.testSuite" (close)="showTestRunner = false">
+</app-test-runner-modal>
+
+<!-- Architecture Lightbox -->
+<div class="modal-overlay architecture-lightbox" *ngIf="showArchitecture" (click)="showArchitecture = false">
+  <div class="lightbox-content glass animate" (click)="$event.stopPropagation()">
+    <header class="lightbox-header">
+      <h3>Diseño de Arquitectura: <span>{{ selectedProject?.name }}</span></h3>
+      <button class="close-btn" (click)="showArchitecture = false">×</button>
+    </header>
+    <div class="diagram-viewer">
+      <img [src]="selectedProject?.architectureUrl" alt="Architecture Diagram">
+    </div>
+    <div class="lightbox-footer">
+      <p>Esquema técnico de la infraestructura y flujo de datos.</p>
+    </div>
+  </div>
+</div>

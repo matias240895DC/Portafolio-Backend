@@ -1,0 +1,50 @@
+<div class="admin-page-header">
+  <h2>Gestión de <span>Proyectos</span></h2>
+  <button class="glow-btn" (click)="openForm()">+ Nuevo Proyecto</button>
+</div>
+
+<div class="glass table-container">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Ranking</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of projects">
+        <td><img [src]="p.imageUrl || 'assets/placeholder.png'" class="table-img" alt="Project"></td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.ranking }}/5</td>
+        <td>
+          <span [class]="'badge ' + (p.active ? 'active' : 'inactive')">
+            {{ p.active ? 'Visible' : 'Oculto' }}
+          </span>
+        </td>
+        <td>
+          <div class="table-actions">
+            <button class="action-btn edit" (click)="openForm(p)" title="Editar">
+              <span class="icon">✎</span>
+            </button>
+            <button class="action-btn toggle" (click)="toggleActive(p)" [title]="p.active ? 'Ocultar' : 'Mostrar'">
+              <span class="icon">{{ p.active ? '👁️' : '🚫' }}</span>
+            </button>
+            <button class="action-btn delete" (click)="deleteProject(p._id)" title="Eliminar">
+              <span class="icon">🗑</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal Form -->
+<div class="modal-overlay" *ngIf="showForm">
+  <div class="glass modal-content animate">
+      <app-project-form [project]="selectedProject" (close)="closeForm()" (save)="refresh()"></app-project-form>
+  </div>
+</div>
