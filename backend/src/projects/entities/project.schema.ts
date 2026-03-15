@@ -75,6 +75,10 @@ export class Project extends Document {
 
   @Prop()
   envVariables: string;
+
+  @ApiProperty()
+  @Prop({ default: true })
+  showTests: boolean;
 }
 
 

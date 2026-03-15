@@ -71,6 +71,10 @@ export class TestRunnerModalComponent implements OnInit, OnDestroy, AfterViewChe
       try {
         const data = JSON.parse(event.data);
         
+        if (data.type === 'heartbeat') {
+          return;
+        }
+
         if (data.done) {
           this.simulationFinished = true;
           this.executionTime = Date.now() - this.startTime;

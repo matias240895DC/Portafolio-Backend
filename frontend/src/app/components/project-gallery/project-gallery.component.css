@@ -3,10 +3,6 @@
   min-height: 80vh;
 }
 
-.gallery-container .container {
-  max-width: 1400px;
-}
-
 .gallery-title {
   font-size: 3rem;
   margin-bottom: 20px;

@@ -88,7 +88,9 @@ export class ProjectsController {
   @Sse(':id/test-stream')
   @ApiOperation({ summary: 'Run live tests for a project via SSE' })
   async testStream(@Param('id') id: string, @Query('target') target?: 'backend' | 'frontend'): Promise<Observable<MessageEvent>> {
-    const project = await this.projectsService.findOne(id, true); // Admin fetch for secrets
+    console.log(`[SSE] Incoming request for project ${id}, target: ${target}`);
+    const project = await this.projectsService.findOne(id, true);
+    console.log(`[SSE] Project found: ${project?.name}. Repo: ${project?.githubUrl}`);
     const repoUrl = project ? project.githubUrl : undefined;
     const envVars = project ? project.envVariables : undefined;
     

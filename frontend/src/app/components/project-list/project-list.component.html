@@ -13,49 +13,74 @@
       <h3>{{ p.name }}</h3>
       <p class="project-desc">{{ p.description }}</p>
 
-      <!-- Technical Achievements / Case Study Area -->
-      <div class="technical-achievements" *ngIf="p.challenge || p.solution || p.impact">
-        <div class="achievement-item" *ngIf="p.challenge">
-          <label>🚨 Desafío</label>
-          <p>{{ p.challenge }}</p>
+      <!-- Section 1: Technical Analysis -->
+      <div class="card-section">
+        <label class="section-label">📋 Análisis Técnico</label>
+        <div class="achievement-tabs" *ngIf="p.challenge || p.solution || p.impact">
+          <button class="tab-btn" [class.active]="isSectionActive(p._id, 'challenge')" *ngIf="p.challenge"
+            (click)="toggleSection(p._id, 'challenge')">
+            🚨 Desafío
+          </button>
+          <button class="tab-btn" [class.active]="isSectionActive(p._id, 'solution')" *ngIf="p.solution"
+            (click)="toggleSection(p._id, 'solution')">
+            💡 Solución
+          </button>
+          <button class="tab-btn" [class.active]="isSectionActive(p._id, 'impact')" *ngIf="p.impact"
+            (click)="toggleSection(p._id, 'impact')">
+            📈 Impacto
+          </button>
         </div>
-        <div class="achievement-item" *ngIf="p.solution">
-          <label>💡 Solución</label>
-          <p>{{ p.solution }}</p>
-        </div>
-        <div class="achievement-item" *ngIf="p.impact">
-          <label>📈 Impacto</label>
-          <p>{{ p.impact }}</p>
+
+        <!-- Technical achievements Content Area -->
+        <div class="technical-achievements-container" *ngIf="expandedSectionPerProject[p._id]">
+          <div class="achievement-item animate-fade" *ngIf="isSectionActive(p._id, 'challenge')">
+            <p>{{ p.challenge }}</p>
+          </div>
+          <div class="achievement-item animate-fade" *ngIf="isSectionActive(p._id, 'solution')">
+            <p>{{ p.solution }}</p>
+          </div>
+          <div class="achievement-item animate-fade" *ngIf="isSectionActive(p._id, 'impact')">
+            <p>{{ p.impact }}</p>
+          </div>
         </div>
       </div>
 
-      <div class="stacks" *ngIf="p.stacks && p.stacks.length > 0">
-        <label class="info-label">Tecnologías:</label>
-        <span *ngFor="let st of p.stacks" class="stack-tag">{{ st.name }}</span>
+      <!-- Section 2: Stack & Architecture -->
+      <div class="card-section" *ngIf="(p.stacks && p.stacks.length > 0) || (p.languages && p.languages.length > 0)">
+        <label class="section-label">🛠️ Arquitectura & Stack</label>
+        <div class="tag-group">
+          <div class="stacks" *ngIf="p.stacks && p.stacks.length > 0">
+            <span *ngFor="let st of p.stacks" class="stack-tag">{{ st.name }}</span>
+          </div>
+          <div class="languages" *ngIf="p.languages && p.languages.length > 0">
+            <span *ngFor="let lang of p.languages" class="lang-tag">{{ lang }}</span>
+          </div>
+        </div>
       </div>
 
-      <div class="languages" *ngIf="p.languages && p.languages.length > 0">
-        <span *ngFor="let lang of p.languages" class="lang-tag">{{ lang }}</span>
-      </div>
-
-
-      <div class="project-footer">
+      <!-- Section 3: Links -->
+      <div class="card-section" *ngIf="p.deployUrl || p.githubUrl || p.swaggerUrl">
+        <label class="section-label">🔗 Enlaces del Proyecto</label>
         <div class="project-links">
           <a [href]="p.deployUrl" target="_blank" *ngIf="p.deployUrl" class="link-icon">🚀 Deploy</a>
           <a [href]="p.githubUrl" target="_blank" *ngIf="p.githubUrl" class="link-icon">GitHub</a>
           <a [href]="p.swaggerUrl" target="_blank" *ngIf="p.swaggerUrl" class="link-icon">Swagger</a>
         </div>
+      </div>
 
+      <!-- Section 4: Developer Tools -->
+      <div class="card-section">
+        <label class="section-label">⚡ Acciones</label>
         <div class="project-actions">
           <button class="action-btn-premium blueprint" *ngIf="p.architectureUrl" (click)="viewArchitecture(p)"
             title="Ver Arquitectura">
             📐 Blueprint
           </button>
-          <button class="action-btn-premium tests" *ngIf="p.testSuite && p.testSuite.length > 0"
+          <button class="action-btn-premium tests" *ngIf="p.showTests && p.testSuite && p.testSuite.length > 0"
             (click)="runTests(p, 'backend')">
             ⚙️ Test backend
           </button>
-          <button class="action-btn-premium tests" *ngIf="p.testSuite && p.testSuite.length > 0"
+          <button class="action-btn-premium tests" *ngIf="p.showTests && p.testSuite && p.testSuite.length > 0"
             (click)="runTests(p, 'frontend')">
             🖥️ Test frontend
           </button>
@@ -63,7 +88,6 @@
             💬 Comentarios.
           </button>
         </div>
-
       </div>
 
       <!-- Comments Section -->

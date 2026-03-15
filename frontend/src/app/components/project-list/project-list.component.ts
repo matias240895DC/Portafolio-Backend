@@ -22,6 +22,7 @@ export class ProjectListComponent {
   showTestRunner = false;
   showArchitecture = false;
   selectedProject: any = null;
+  expandedSectionPerProject: { [key: string]: string | null } = {};
 
   constructor(private dataService: DataService) {}
 
@@ -65,5 +66,17 @@ export class ProjectListComponent {
   viewArchitecture(project: any) {
     this.selectedProject = project;
     this.showArchitecture = true;
+  }
+
+  toggleSection(projectId: string, section: string) {
+    if (this.expandedSectionPerProject[projectId] === section) {
+      this.expandedSectionPerProject[projectId] = null;
+    } else {
+      this.expandedSectionPerProject[projectId] = section;
+    }
+  }
+
+  isSectionActive(projectId: string, section: string): boolean {
+    return this.expandedSectionPerProject[projectId] === section;
   }
 }

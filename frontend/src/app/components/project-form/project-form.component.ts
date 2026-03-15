@@ -57,7 +57,8 @@ export class ProjectFormComponent implements OnInit {
       impact: [this.project?.impact || ''],
       architectureUrl: [this.project?.architectureUrl || ''],
       languagesRaw: [this.project?.languages?.join(', ') || ''],
-      envVariables: [this.project?.envVariables || '']
+      envVariables: [this.project?.envVariables || ''],
+      showTests: [this.project?.showTests ?? true]
     });
   }
 
