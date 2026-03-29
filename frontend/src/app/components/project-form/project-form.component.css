@@ -212,6 +212,12 @@
     font-size: 0.9rem;
     outline: none;
     transition: var(--transition);
+    color-scheme: dark; /* Force dark mode browser menu */
+}
+
+.stack-selection-header select option {
+    background-color: #1a1b26; /* Hardcoded dark background for cross-browser safety */
+    color: white;
 }
 
 .stack-selection-header select:focus {
