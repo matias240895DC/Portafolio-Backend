@@ -15,8 +15,8 @@ export class Profile {
   experience: { title: string, company: string, period: string, description: string }[];
 
   @ApiProperty({ type: 'array', items: { type: 'object' } })
-  @Prop({ type: [{ degree: String, institution: String, year: String }] })
-  education: { degree: string, institution: string, year: string }[];
+  @Prop({ type: [{ degree: String, institution: String, year: String, description: String }] })
+  education: { degree: string, institution: string, year: string, description: string }[];
 
   @ApiProperty({ type: 'array', items: { type: 'object' } })
   @Prop({ type: [{ name: String, level: String, icon: String }] })

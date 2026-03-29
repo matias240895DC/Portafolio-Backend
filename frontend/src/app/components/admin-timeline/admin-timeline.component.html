@@ -138,6 +138,11 @@
                 </div>
             </div>
             
+            <div class="form-group">
+                <label>Descripción / Logros</label>
+                <textarea [(ngModel)]="currentEdu.description" rows="5" placeholder="Describe lo que aprendiste o lograste..."></textarea>
+            </div>
+            
             <div class="form-actions" style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
                 <button class="ghost-btn" (click)="showEduModal = false">Cancelar</button>
                 <button class="glow-btn" (click)="saveEducation()">Guardar Formación</button>

@@ -19,7 +19,7 @@ export class AdminTimelineComponent implements OnInit {
   
   // Selected items for editing/adding
   currentExp: any = { title: '', company: '', period: '', description: '' };
-  currentEdu: any = { degree: '', institution: '', year: '' };
+  currentEdu: any = { degree: '', institution: '', year: '', description: '' };
   
   // To track if we are adding or editing
   editingExpIndex: number = -1;
@@ -74,7 +74,7 @@ export class AdminTimelineComponent implements OnInit {
 
   // --- EDUCATION CRUD --- //
   openAddEduModal() {
-    this.currentEdu = { degree: '', institution: '', year: '' };
+    this.currentEdu = { degree: '', institution: '', year: '', description: '' };
     this.editingEduIndex = -1;
     this.showEduModal = true;
   }
