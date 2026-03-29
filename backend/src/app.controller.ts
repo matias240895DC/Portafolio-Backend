@@ -12,6 +12,7 @@ export class AppController {
 
   @Get('health')
   getHealth(): any {
+    console.log(`[${new Date().toISOString()}] ⚡ CRON PING RECEIVED - Server kept alive`);
     return {
       status: 'OK',
       uptime: process.uptime(),
