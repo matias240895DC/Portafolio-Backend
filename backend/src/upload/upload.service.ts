@@ -31,7 +31,7 @@ export class UploadService {
         const uploadStream = cloudinary.uploader.upload_stream(
           {
             folder: 'portfolio_cv',
-            resource_type: 'raw',
+            resource_type: 'image',
             format: 'pdf',
           },
           (error, result) => {

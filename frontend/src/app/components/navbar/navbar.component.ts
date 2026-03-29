@@ -40,13 +40,15 @@ export class NavbarComponent implements OnInit {
 
   downloadCV() {
     if (this.profile?.socialLinks?.cvUrl) {
-      const url = this.profile.socialLinks.cvUrl;
-      let downloadUrl = url;
+      let downloadUrl = this.profile.socialLinks.cvUrl;
       
-      // If it's a legacy Cloudinary URL, append fl_attachment to force download
-      if (url.includes('cloudinary.com')) {
-        const separator = url.includes('?') ? '&' : '?';
-        downloadUrl = `${url}${separator}fl_attachment=true`;
+      if (!downloadUrl.startsWith('http')) {
+        downloadUrl = 'https://' + downloadUrl;
+      }
+      
+      // Force download for Cloudinary URLs using path variable
+      if (downloadUrl.includes('res.cloudinary.com') && downloadUrl.includes('/upload/') && !downloadUrl.includes('fl_attachment')) {
+        downloadUrl = downloadUrl.replace('/upload/', '/upload/fl_attachment/');
       }
       
       window.open(downloadUrl, '_blank');
