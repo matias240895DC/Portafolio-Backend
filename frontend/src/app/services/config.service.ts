@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, tap } from 'rxjs';
+import { API_CONFIG } from '../config/api.config';
 import { DataService } from './data.service';
 
 export interface ThemeSettings {
@@ -60,6 +61,7 @@ export interface SiteConfig {
 })
 export class ConfigService {
   private readonly THEME_MODE_KEY = 'themeMode';
+  private apiUrl = `${API_CONFIG.baseUrl}/config`;
   private configSubject = new BehaviorSubject<SiteConfig | null>(null);
   config$ = this.configSubject.asObservable();
 

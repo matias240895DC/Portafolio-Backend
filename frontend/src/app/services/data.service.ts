@@ -1,10 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { API_CONFIG } from '../config/api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
+  private apiUrl = API_CONFIG.baseUrl;
+
   constructor(private http: HttpClient) {}
 
   private getHeaders() {

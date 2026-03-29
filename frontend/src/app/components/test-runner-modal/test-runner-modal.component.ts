@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef, isDevMode } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { API_CONFIG } from '../../config/api.config';
 
 interface LogEntry {
   text: string;
@@ -26,6 +27,8 @@ export class TestRunnerModalComponent implements OnInit, OnDestroy, AfterViewChe
   simulationFinished: boolean = false;
   executionTime: number = 0;
   progress: number = 0;
+  isProduction = !isDevMode();
+
   private eventSource: EventSource | null = null;
   private startTime: number = 0;
 
@@ -66,7 +69,7 @@ export class TestRunnerModalComponent implements OnInit, OnDestroy, AfterViewChe
 
     // Connect to the actual backend test runner
     // We use the same API path that other services use (/api/projects/...)
-    this.eventSource = new EventSource(`/api/projects/${this.projectId}/test-stream?target=${this.testTarget}`);
+    this.eventSource = new EventSource(`${API_CONFIG.baseUrl}/projects/${this.projectId}/test-stream?target=${this.testTarget}`);
 
     this.eventSource.onmessage = (event) => {
       try {

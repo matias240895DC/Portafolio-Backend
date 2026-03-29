@@ -45,9 +45,17 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const port = configService.get<number>('PORT') || 3000;
+  const host = configService.get<string>('HOST') || 'localhost';
+  const externalUrl = configService.get<string>('RENDER_EXTERNAL_URL');
 
   await app.listen(port);
-  logger.log(`Application is running on: http://localhost:${port}/api`);
-  logger.log(`Health check: http://localhost:${port}/api/health`);
+  
+  if (externalUrl) {
+    logger.log(`Application is live at: ${externalUrl}`);
+    logger.log(`Health check: ${externalUrl}/api/health`);
+  } else {
+    logger.log(`Application is running on: http://${host}:${port}/api`);
+    logger.log(`Health check: http://${host}:${port}/api/health`);
+  }
 }
 bootstrap();

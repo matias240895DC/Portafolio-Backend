@@ -38,7 +38,7 @@
         <span class="final-icon" *ngIf="!logs[logs.length-1]?.type?.includes('error') && !logs[logs.length-1]?.text?.includes('failed') && !logs[logs.length-1]?.text?.includes('Error')">✅</span>
         <span class="final-icon" *ngIf="logs[logs.length-1]?.type?.includes('error') || logs[logs.length-1]?.text?.includes('failed') || logs[logs.length-1]?.text?.includes('Error')">❌</span>
         <h3 class="final-title">EJECUCIÓN FINALIZADA</h3>
-        <p class="final-stats">NODO: LOCALHOST // TIEMPO: {{ executionTime }}ms</p>
+        <p class="final-stats">NODO: {{ isProduction ? 'LIVE/PROD' : 'LOCALHOST' }} // TIEMPO: {{ executionTime }}ms</p>
       </div>
     </div>
 
