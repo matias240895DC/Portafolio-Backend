@@ -40,22 +40,64 @@
               <span class="terminal-id">{{ config.consoleTitleTerminal }}</span>
               <span class="terminal-ver">v4.0.2</span>
             </div>
-            <div class="gd-tabs">
-              <button class="tab-btn" (click)="setActiveTab('SYSTEM')" [class.active]="activeTab === 'SYSTEM'">
-                <span class="tab-idx">01</span> [{{ config.consoleTitleTab1 }}]
-              </button>
-              <button class="tab-btn" (click)="setActiveTab('HISTORY')" [class.active]="activeTab === 'HISTORY'">
-                <span class="tab-idx">02</span> [{{ config.consoleTitleTab2 }}]
-              </button>
-              <button class="tab-btn" (click)="setActiveTab('STACKS')" [class.active]="activeTab === 'STACKS'">
-                <span class="tab-idx">03</span> [{{ config.consoleTitleTab3 }}]
-              </button>
-              <button class="tab-btn" (click)="setActiveTab('PROJECTS')" [class.active]="activeTab === 'PROJECTS'">
-                <span class="tab-idx">04</span> [{{ config.consoleTitleTab4 || 'PROYECTOS' }}]
-              </button>
-              <button class="tab-btn" (click)="setActiveTab('FEEDBACK')" [class.active]="activeTab === 'FEEDBACK'">
-                <span class="tab-idx">05</span> [{{ config.consoleTitleTab5 || 'FEEDBACK' }}]
-              </button>
+            <div class="gd-tabs-wrapper">
+              <!-- Desktop Tabs (Visible > 1050px) -->
+              <div class="gd-tabs desktop-tabs">
+                <button class="tab-btn" (click)="setActiveTab('SYSTEM')" [class.active]="activeTab === 'SYSTEM'">
+                  <span class="tab-idx">01</span> [{{ config.consoleTitleTab1 }}]
+                </button>
+                <button class="tab-btn" (click)="setActiveTab('HISTORY')" [class.active]="activeTab === 'HISTORY'">
+                  <span class="tab-idx">02</span> [{{ config.consoleTitleTab2 }}]
+                </button>
+                <button class="tab-btn" (click)="setActiveTab('STACKS')" [class.active]="activeTab === 'STACKS'">
+                  <span class="tab-idx">03</span> [{{ config.consoleTitleTab3 }}]
+                </button>
+                <button class="tab-btn" (click)="setActiveTab('PROJECTS')" [class.active]="activeTab === 'PROJECTS'">
+                  <span class="tab-idx">04</span> [{{ config.consoleTitleTab4 || 'PROYECTOS' }}]
+                </button>
+                <button class="tab-btn" (click)="setActiveTab('FEEDBACK')" [class.active]="activeTab === 'FEEDBACK'">
+                  <span class="tab-idx">05</span> [{{ config.consoleTitleTab5 || 'FEEDBACK' }}]
+                </button>
+              </div>
+
+              <!-- Mobile/Tablet Tab Switcher (Visible < 1050px) -->
+              <div class="mobile-tabs-container">
+                <button class="mobile-tabs-trigger" (click)="toggleMobileTabs()">
+                  <span class="active-label">
+                    <span class="tab-idx">
+                      {{ activeTab === 'SYSTEM' ? '01' : 
+                         activeTab === 'HISTORY' ? '02' : 
+                         activeTab === 'STACKS' ? '03' : 
+                         activeTab === 'PROJECTS' ? '04' : '05' }}
+                    </span>
+                    [{{ activeTab === 'SYSTEM' ? config.consoleTitleTab1 : 
+                        activeTab === 'HISTORY' ? config.consoleTitleTab2 : 
+                        activeTab === 'STACKS' ? config.consoleTitleTab3 : 
+                        activeTab === 'PROJECTS' ? (config.consoleTitleTab4 || 'PROYECTOS') : 
+                        (config.consoleTitleTab5 || 'FEEDBACK') }}]
+                  </span>
+                  <span class="chevron" [class.open]="showMobileTabs">▼</span>
+                </button>
+
+                <div class="mobile-tabs-dropdown glass animate" *ngIf="showMobileTabs">
+                  <div class="dropdown-header">SOLICITAR_MODULO</div>
+                  <button class="menu-item" (click)="setActiveTab('SYSTEM')" [class.active]="activeTab === 'SYSTEM'">
+                    <span class="tab-idx">01</span> [{{ config.consoleTitleTab1 }}]
+                  </button>
+                  <button class="menu-item" (click)="setActiveTab('HISTORY')" [class.active]="activeTab === 'HISTORY'">
+                    <span class="tab-idx">02</span> [{{ config.consoleTitleTab2 }}]
+                  </button>
+                  <button class="menu-item" (click)="setActiveTab('STACKS')" [class.active]="activeTab === 'STACKS'">
+                    <span class="tab-idx">03</span> [{{ config.consoleTitleTab3 }}]
+                  </button>
+                  <button class="menu-item" (click)="setActiveTab('PROJECTS')" [class.active]="activeTab === 'PROJECTS'">
+                    <span class="tab-idx">04</span> [{{ config.consoleTitleTab4 || 'PROYECTOS' }}]
+                  </button>
+                  <button class="menu-item" (click)="setActiveTab('FEEDBACK')" [class.active]="activeTab === 'FEEDBACK'">
+                    <span class="tab-idx">05</span> [{{ config.consoleTitleTab5 || 'FEEDBACK' }}]
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

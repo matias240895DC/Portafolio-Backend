@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   softSkills: any[] = [];
   stacks: any[] = [];
   activeTab: string = 'SYSTEM';
+  showMobileTabs: boolean = false;
 
   // Stacks Pagination
   currentPageStacks = 1;
@@ -52,7 +53,12 @@ export class HomeComponent implements OnInit {
   constructor(private dataService: DataService, public configService: ConfigService) {}
 
   setActiveTab(tab: string) {
-    this.activeTab = (this.activeTab === tab) ? '' : tab;
+    this.activeTab = tab;
+    this.showMobileTabs = false;
+  }
+
+  toggleMobileTabs() {
+    this.showMobileTabs = !this.showMobileTabs;
   }
 
 

@@ -348,6 +348,105 @@ body.light-mode .gd-console-header {
     opacity: 0.5;
 }
 
+.gd-tabs-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.mobile-tabs-container {
+    display: none;
+    position: relative;
+    width: 100%;
+}
+
+.mobile-tabs-trigger {
+    background: var(--primary);
+    border: 1px solid var(--primary);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 400px;
+    text-transform: uppercase;
+    box-shadow: 0 4px 15px var(--primary-glow);
+    transition: transform 0.2s ease;
+}
+
+.mobile-tabs-trigger:active {
+    transform: scale(0.98);
+}
+
+.mobile-tabs-trigger .chevron {
+    transition: transform 0.3s ease;
+    font-size: 0.7rem;
+    opacity: 0.8;
+}
+
+.mobile-tabs-trigger .chevron.open {
+    transform: rotate(180deg);
+}
+
+.mobile-tabs-dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    width: 100%;
+    max-width: 400px;
+    z-index: 1000;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border: 1px solid var(--glass-stroke);
+    background: var(--modal-bg);
+}
+
+.dropdown-header {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.6rem;
+    color: var(--primary);
+    opacity: 0.6;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    letter-spacing: 0.1em;
+}
+
+.menu-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 12px 18px;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    text-align: left;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.menu-item.active {
+    background: rgba(99, 102, 241, 0.15);
+    border-color: var(--primary);
+    color: #fff;
+    padding-left: 22px;
+}
+
+.menu-item:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: var(--text-main);
+}
+
 .gd-tabs {
     display: flex;
     gap: 15px;
@@ -719,6 +818,11 @@ body.light-mode .tech-pill {
     .timeline-console-grid { grid-template-columns: 1fr; gap: 60px; }
     .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: flex-start; padding: 20px; }
     .gd-console-body { padding: 40px 15px; } /* Reduced from 25px for more mobile space */
+}
+
+@media (max-width: 1050px) {
+    .desktop-tabs { display: none !important; }
+    .mobile-tabs-container { display: block !important; }
 }
 
 @media (max-width: 600px) {
