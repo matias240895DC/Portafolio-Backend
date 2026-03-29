@@ -1,12 +1,8 @@
-import { Controller, Post, UploadedFile, UseInterceptors, UseGuards, Req } from '@nestjs/common';
+import { Controller, Post, UploadedFile, UseInterceptors, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
-import { v4 as uuidv4 } from 'uuid';
-import { Request } from 'express';
 
 @ApiTags('Upload')
 @Controller('upload')
@@ -42,23 +38,8 @@ export class UploadController {
 
   @Post('pdf')
   @UseGuards(JwtAuthGuard)
-  @UseInterceptors(
-    FileInterceptor('file', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: (req, file, cb) => {
-          const uniqueSuffix = uuidv4();
-          const ext = extname(file.originalname);
-          cb(null, `cv-${uniqueSuffix}${ext}`);
-        },
-      }),
-      fileFilter: (_req, file, cb) => {
-        if (file.mimetype === 'application/pdf') return cb(null, true);
-        return cb(new Error('Only PDF files are allowed'), false);
-      },
-    }),
-  )
-  @ApiOperation({ summary: 'Upload a PDF locally' })
+  @UseInterceptors(FileInterceptor('file'))
+  @ApiOperation({ summary: 'Upload a PDF to Cloudinary' })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
@@ -71,17 +52,16 @@ export class UploadController {
       },
     },
   })
-  async uploadPdf(@UploadedFile() file: Express.Multer.File, @Req() req: Request) {
+  async uploadPdf(@UploadedFile() file: Express.Multer.File) {
     if (!file) {
       return { error: 'No PDF file provided' };
     }
     
-    // Construct a relative URL so it works seamlessly across dev and production environments
-    const url = `/api/uploads/${file.filename}`;
+    const result = await this.uploadService.uploadPdf(file);
     
     return {
-      url: url,
-      public_id: file.filename, // Keep for compatibility if frontend expects it
+      url: result.secure_url,
+      public_id: result.public_id,
     };
   }
 }
