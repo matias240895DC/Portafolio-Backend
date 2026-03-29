@@ -491,23 +491,31 @@ body.light-mode .dropdown-header {
 body.light-mode .menu-item {
     background: #f8fafc;
     border-color: #e2e8f0;
-    color: #475569;
+    color: #1e293b;
+    font-weight: 600;
 }
 
 body.light-mode .menu-item:hover:not(.active) {
     background: #f1f5f9;
     color: var(--primary);
+    border-color: #cbd5e1;
 }
 
 body.light-mode .menu-item.active {
     background: rgba(99, 102, 241, 0.1);
     color: var(--primary);
     border-color: var(--primary);
+    font-weight: 1000;
 }
 
 body.light-mode .menu-item .tab-idx {
+    color: #64748b;
+    opacity: 1;
+    font-weight: 500;
+}
+
+body.light-mode .menu-item.active .tab-idx {
     color: var(--primary);
-    opacity: 0.8;
 }
 
 .gd-tabs {
