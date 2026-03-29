@@ -317,7 +317,7 @@ body.light-mode .gd-console-frame {
 .gd-console-header .header-inner {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 25px 40px;
+    padding: 20px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -814,13 +814,13 @@ body.light-mode .tech-pill {
     border-style: dashed;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1300px) {
     .timeline-console-grid { grid-template-columns: 1fr; gap: 60px; }
-    .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: flex-start; padding: 20px; }
+    .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: flex-start; padding: 25px; }
     .gd-console-body { padding: 40px 15px; } /* Reduced from 25px for more mobile space */
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1300px) {
     .desktop-tabs { display: none !important; }
     .mobile-tabs-container { display: block !important; }
 }

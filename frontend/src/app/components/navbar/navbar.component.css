@@ -162,7 +162,7 @@ input:not(:checked) + .slider .moon {
   opacity: 0.3;
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 1250px) {
   .nav-logo-img {
     height: 36px;
     max-width: 140px;
