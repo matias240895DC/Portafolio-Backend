@@ -826,6 +826,12 @@ h3 {
   text-shadow: 0 10px 20px rgba(0,0,0,0.3);
 }
 
+:host-context(body.light-mode) h3 {
+  background: none;
+  -webkit-text-fill-color: var(--text-main);
+  text-shadow: none;
+}
+
 .project-desc {
     font-size: 0.9rem;
     color: var(--text-dim);
