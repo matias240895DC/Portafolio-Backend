@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef, isDevMode } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, OnDestroy, ViewChild, ElementRef, AfterViewChecked, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { API_CONFIG } from '../../config/api.config';
 
@@ -27,7 +27,7 @@ export class TestRunnerModalComponent implements OnInit, OnDestroy, AfterViewChe
   simulationFinished: boolean = false;
   executionTime: number = 0;
   progress: number = 0;
-  isProduction = !isDevMode();
+  isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
 
   private eventSource: EventSource | null = null;
   private startTime: number = 0;
