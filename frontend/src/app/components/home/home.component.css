@@ -351,6 +351,18 @@ body.light-mode .gd-console-header {
 .gd-tabs {
     display: flex;
     gap: 15px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+}
+
+.gd-tabs::-webkit-scrollbar {
+    height: 3px;
+}
+
+.gd-tabs::-webkit-scrollbar-thumb {
+    background: var(--primary);
+    border-radius: 4px;
 }
 
 .tab-btn {
@@ -659,6 +671,7 @@ body.light-mode .gd-stat-card {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
+    justify-content: center;
 }
 
 .tech-pill {
@@ -702,7 +715,23 @@ body.light-mode .tech-pill {
 @media (max-width: 1100px) {
     .timeline-console-grid { grid-template-columns: 1fr; gap: 60px; }
     .gd-console-header { flex-direction: column; gap: 30px; }
-    .gd-console-body { padding: 40px 25px; }
+    .gd-console-body { padding: 40px 15px; } /* Reduced from 25px for more mobile space */
+}
+
+@media (max-width: 600px) {
+    .console-pagination {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .console-pag-btn {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+    .gd-console-body { padding: 30px 10px; }
+    .tech-pill {
+        padding: 8px 16px;
+        gap: 8px;
+    }
 }
 
 /* Tab 04: Projects Grid Fix */

@@ -22,12 +22,21 @@
   padding: 0 30px;
 }
 
+.logo {
+  min-width: 0;
+  flex: 1;
+  margin-right: 20px;
+}
+
 .logo h2 {
     display: flex;
     align-items: center;
     gap: 12px;
-    font-size: 1.5rem;
+    font-size: clamp(1.1rem, 2vw, 1.4rem);
     cursor: pointer;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .nav-logo-img {
@@ -153,7 +162,7 @@ input:not(:checked) + .slider .moon {
   opacity: 0.3;
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1050px) {
   .nav-logo-img {
     height: 36px;
     max-width: 140px;
