@@ -434,6 +434,11 @@ body.light-mode .gd-console-header {
     gap: 12px;
 }
 
+.menu-item .tab-idx {
+    opacity: 0.7;
+    font-size: 0.65rem;
+}
+
 .menu-item.active {
     background: rgba(99, 102, 241, 0.15);
     border-color: var(--primary);
@@ -445,6 +450,39 @@ body.light-mode .gd-console-header {
     background: rgba(255, 255, 255, 0.06);
     border-color: rgba(255, 255, 255, 0.15);
     color: var(--text-main);
+}
+
+/* Light Mode Overrides for Mobile Menu */
+body.light-mode .mobile-tabs-dropdown {
+    background: #ffffff;
+    border-color: #e2e8f0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+body.light-mode .dropdown-header {
+    color: #64748b;
+}
+
+body.light-mode .menu-item {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #475569;
+}
+
+body.light-mode .menu-item:hover:not(.active) {
+    background: #f1f5f9;
+    color: var(--primary);
+}
+
+body.light-mode .menu-item.active {
+    background: rgba(99, 102, 241, 0.1);
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+body.light-mode .menu-item .tab-idx {
+    color: var(--primary);
+    opacity: 0.8;
 }
 
 .gd-tabs {
@@ -816,8 +854,13 @@ body.light-mode .tech-pill {
 
 @media (max-width: 1300px) {
     .timeline-console-grid { grid-template-columns: 1fr; gap: 60px; }
-    .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: flex-start; padding: 25px; }
+    .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: stretch; padding: 25px; }
     .gd-console-body { padding: 40px 15px; } /* Reduced from 25px for more mobile space */
+    
+    .mobile-tabs-trigger, 
+    .mobile-tabs-dropdown {
+        max-width: none;
+    }
 }
 
 @media (max-width: 1300px) {
