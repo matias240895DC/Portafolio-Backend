@@ -362,38 +362,53 @@ body.light-mode .gd-console-header {
 }
 
 .mobile-tabs-trigger {
-    background: var(--primary);
-    border: 1px solid var(--primary);
-    color: #fff;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    font-weight: 700;
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 10px 15px;
+    border-radius: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.mobile-tabs-trigger:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: var(--primary);
+}
+
+.hamburger-icon {
+    width: 20px;
+    height: 14px;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    width: auto;
-    min-width: 140px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 15px var(--primary-glow);
-    transition: all 0.2s ease;
 }
 
-.mobile-tabs-trigger:active {
-    transform: scale(0.98);
+.hamburger-icon .bar {
+    width: 100%;
+    height: 2px;
+    background: var(--primary);
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.mobile-tabs-trigger .chevron {
-    transition: transform 0.3s ease;
-    font-size: 0.7rem;
-    opacity: 0.8;
+.mobile-tabs-trigger.open .bar:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.mobile-tabs-trigger.open .bar:nth-child(2) { opacity: 0; }
+.mobile-tabs-trigger.open .bar:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+.trigger-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    letter-spacing: 0.1em;
 }
 
-.mobile-tabs-trigger .chevron.open {
-    transform: rotate(180deg);
-}
+.mobile-tabs-trigger .chevron { display: none; }
+
 
 .mobile-tabs-dropdown {
     position: absolute;
@@ -455,6 +470,11 @@ body.light-mode .gd-console-header {
 }
 
 /* Light Mode Overrides for Mobile Menu */
+body.light-mode .mobile-tabs-trigger {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+}
+
 body.light-mode .mobile-tabs-dropdown {
     background: #ffffff;
     border-color: #e2e8f0;

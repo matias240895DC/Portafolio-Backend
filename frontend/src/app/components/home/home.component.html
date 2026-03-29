@@ -62,21 +62,13 @@
 
               <!-- Mobile/Tablet Tab Switcher (Visible < 1050px) -->
               <div class="mobile-tabs-container">
-                <button class="mobile-tabs-trigger" (click)="toggleMobileTabs()">
-                  <span class="active-label">
-                    <span class="tab-idx">
-                      {{ activeTab === 'SYSTEM' ? '01' : 
-                         activeTab === 'HISTORY' ? '02' : 
-                         activeTab === 'STACKS' ? '03' : 
-                         activeTab === 'PROJECTS' ? '04' : '05' }}
-                    </span>
-                    [{{ activeTab === 'SYSTEM' ? config.consoleTitleTab1 : 
-                        activeTab === 'HISTORY' ? config.consoleTitleTab2 : 
-                        activeTab === 'STACKS' ? config.consoleTitleTab3 : 
-                        activeTab === 'PROJECTS' ? (config.consoleTitleTab4 || 'PROYECTOS') : 
-                        (config.consoleTitleTab5 || 'FEEDBACK') }}]
-                  </span>
-                  <span class="chevron" [class.open]="showMobileTabs">▼</span>
+                <button class="mobile-tabs-trigger" (click)="toggleMobileTabs()" [class.open]="showMobileTabs">
+                  <div class="hamburger-icon">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                  </div>
+                  <span class="trigger-label">MENU</span>
                 </button>
 
                 <div class="mobile-tabs-dropdown glass animate" *ngIf="showMobileTabs">
