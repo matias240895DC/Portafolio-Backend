@@ -749,6 +749,21 @@ body.light-mode .gd-stat-card {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (max-width: 1300px) {
+    .timeline-console-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        max-width: 600px;
+        justify-items: center;
+    }
+    
+    .console-col {
+        width: 100%;
+    }
 }
 
 .console-col h3 {
@@ -757,7 +772,20 @@ body.light-mode .gd-stat-card {
     margin-bottom: 40px;
     display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 15px;
+}
+
+@media (max-width: 1300px) {
+    .console-col h3 {
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .c-timeline-track {
+        max-width: 400px;
+        margin: 0 auto;
+    }
 }
 
 .c-timeline-track {
