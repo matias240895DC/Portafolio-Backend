@@ -351,6 +351,7 @@ body.light-mode .gd-console-header {
 .gd-tabs {
     display: flex;
     gap: 15px;
+    width: 100%;
     overflow-x: auto;
     padding-bottom: 8px;
     -webkit-overflow-scrolling: touch;
@@ -383,6 +384,8 @@ body.light-mode .gd-console-header {
     letter-spacing: 0.05em;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
 .tab-btn::before {
@@ -714,7 +717,7 @@ body.light-mode .tech-pill {
 
 @media (max-width: 1100px) {
     .timeline-console-grid { grid-template-columns: 1fr; gap: 60px; }
-    .gd-console-header { flex-direction: column; gap: 30px; }
+    .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: flex-start; padding: 20px; }
     .gd-console-body { padding: 40px 15px; } /* Reduced from 25px for more mobile space */
 }
 
