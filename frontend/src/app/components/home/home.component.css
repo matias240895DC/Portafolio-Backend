@@ -330,7 +330,9 @@ body.light-mode .gd-console-header {
 
 .gd-console-meta {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 10px;
 }
 
 .terminal-id {
@@ -363,20 +365,20 @@ body.light-mode .gd-console-header {
     background: var(--primary);
     border: 1px solid var(--primary);
     color: #fff;
-    padding: 10px 20px;
+    padding: 8px 16px;
     border-radius: 8px;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
-    max-width: 400px;
+    width: auto;
+    min-width: 140px;
     text-transform: uppercase;
     box-shadow: 0 4px 15px var(--primary-glow);
-    transition: transform 0.2s ease;
+    transition: all 0.2s ease;
 }
 
 .mobile-tabs-trigger:active {
@@ -396,9 +398,8 @@ body.light-mode .gd-console-header {
 .mobile-tabs-dropdown {
     position: absolute;
     top: calc(100% + 12px);
-    left: 0;
-    width: 100%;
-    max-width: 400px;
+    right: 0;
+    width: 260px;
     z-index: 1000;
     padding: 15px;
     display: flex;
@@ -406,6 +407,7 @@ body.light-mode .gd-console-header {
     gap: 8px;
     border: 1px solid var(--glass-stroke);
     background: var(--modal-bg);
+    border-radius: 12px;
 }
 
 .dropdown-header {
@@ -854,12 +856,21 @@ body.light-mode .tech-pill {
 
 @media (max-width: 1300px) {
     .timeline-console-grid { grid-template-columns: 1fr; gap: 60px; }
-    .gd-console-header .header-inner { flex-direction: column; gap: 20px; align-items: stretch; padding: 25px; }
-    .gd-console-body { padding: 40px 15px; } /* Reduced from 25px for more mobile space */
+    .gd-console-header .header-inner { 
+        flex-direction: row; 
+        justify-content: space-between; 
+        align-items: center; 
+        padding: 15px 20px; 
+    }
+    .gd-console-body { padding: 40px 15px; } 
     
     .mobile-tabs-trigger, 
     .mobile-tabs-dropdown {
         max-width: none;
+    }
+
+    .gd-console-meta {
+        margin-right: 15px;
     }
 }
 
