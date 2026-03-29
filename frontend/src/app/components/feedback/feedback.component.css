@@ -79,9 +79,10 @@
 }
 
 .stars-input span.active {
-    color: #fbbf24;
+    color: var(--warning, #fbbf24);
     opacity: 1;
     transform: scale(1.1);
+    text-shadow: 0 0 10px var(--warning);
 }
 
 input, textarea {
@@ -107,9 +108,10 @@ input:focus, textarea:focus {
 .success-msg {
   margin-top: 20px;
   padding: 15px;
-  background: rgba(16, 185, 129, 0.1);
-  color: #10b981;
+  background: var(--success);
+  color: white;
   border-radius: 12px;
   text-align: center;
   font-weight: 600;
+  box-shadow: 0 4px 15px var(--success);
 }

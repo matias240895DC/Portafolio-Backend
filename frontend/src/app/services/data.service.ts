@@ -65,6 +65,12 @@ export class DataService {
     return this.http.post<any>('/api/upload/image', formData, { headers: this.getHeaders() });
   }
 
+  uploadPdf(file: File) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post<any>('/api/upload/pdf', formData, { headers: this.getHeaders() });
+  }
+
   // Config
   getConfig() { return this.http.get<any>('/api/config'); }
   updateConfig(data: any) { return this.http.patch<any>('/api/config', data, { headers: this.getHeaders() }); }

@@ -22,13 +22,22 @@ export class AdminProfileComponent implements OnInit {
       email: '',
       cvUrl: ''
     },
-    languages: []
+    languages: [],
+    experience: [],
+    education: []
   };
+
+  // State to manage which tab is currently active
+  activeTab: 'bio' | 'contact' | 'stats' = 'bio';
 
   constructor(
     private dataService: DataService,
     private toast: ToastService
   ) {}
+
+  switchTab(tabToken: 'bio' | 'contact' | 'stats'): void {
+    this.activeTab = tabToken;
+  }
 
   ngOnInit() {
     this.dataService.getProfile().subscribe({
@@ -66,6 +75,23 @@ export class AdminProfileComponent implements OnInit {
         error: (err) => {
           console.error(err);
           this.toast.error('Error al subir icono');
+        }
+      });
+    }
+  }
+
+  onCvSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.toast.info('Subiendo CV...');
+      this.dataService.uploadPdf(file).subscribe({
+        next: (res) => {
+          this.profile.socialLinks.cvUrl = res.url;
+          this.toast.success('CV subido con éxito');
+        },
+        error: (err) => {
+          console.error(err);
+          this.toast.error('Error al subir el CV');
         }
       });
     }

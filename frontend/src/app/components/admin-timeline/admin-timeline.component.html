@@ -1,0 +1,147 @@
+<div class="admin-page-header">
+  <h2>Gestión de <span>Trayectoria</span></h2>
+</div>
+
+<!-- EXPERIENCIA LABORAL -->
+<div class="section-title">
+    <h3>💼 Experiencia Laboral</h3>
+    <button class="glow-btn sm" (click)="openAddExpModal()">+ Añadir Experiencia</button>
+</div>
+<div class="glass table-container animate">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Período</th>
+        <th>Cargo</th>
+        <th>Empresa</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let exp of profile.experience; let i = index">
+        <td class="tech-name" style="color: var(--primary);">{{ exp.period }}</td>
+        <td class="tech-name">{{ exp.title }}</td>
+        <td>{{ exp.company }}</td>
+        <td>
+          <div class="table-actions">
+            <button class="action-btn edit" (click)="openEditExpModal(exp, i)" title="Editar">
+              <span class="icon">✎</span>
+            </button>
+            <button class="action-btn delete" (click)="deleteExperience(i)" title="Eliminar">
+              <span class="icon">🗑</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="!profile.experience || profile.experience.length === 0">
+          <td colspan="4" class="empty-state">No has registrado experiencia laboral.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FORMACIÓN ACADÉMICA -->
+<div class="section-title" style="margin-top: 40px;">
+    <h3>🎓 Formación Académica</h3>
+    <button class="glow-btn sm" (click)="openAddEduModal()">+ Añadir Formación</button>
+</div>
+<div class="glass table-container animate">
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>Año</th>
+        <th>Título</th>
+        <th>Institución</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let edu of profile.education; let i = index">
+        <td class="tech-name" style="color: var(--primary);">{{ edu.year }}</td>
+        <td class="tech-name">{{ edu.degree }}</td>
+        <td>{{ edu.institution }}</td>
+        <td>
+          <div class="table-actions">
+            <button class="action-btn edit" (click)="openEditEduModal(edu, i)" title="Editar">
+              <span class="icon">✎</span>
+            </button>
+            <button class="action-btn delete" (click)="deleteEducation(i)" title="Eliminar">
+              <span class="icon">🗑</span>
+            </button>
+          </div>
+        </td>
+      </tr>
+      <tr *ngIf="!profile.education || profile.education.length === 0">
+          <td colspan="4" class="empty-state">No has registrado formación académica.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- MODAL EXPERIENCIA -->
+<div class="modal-overlay" *ngIf="showExpModal">
+    <div class="glass modal-content animate">
+        <div class="form-header">
+            <h3>{{ editingExpIndex >= 0 ? 'Editar' : 'Nueva' }} Experiencia</h3>
+            <button class="close-btn" (click)="showExpModal = false">×</button>
+        </div>
+        
+        <div class="admin-form">
+            <div class="form-group">
+                <label>Cargo / Puesto</label>
+                <input type="text" [(ngModel)]="currentExp.title" placeholder="Ej: Senior Developer">
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Empresa</label>
+                    <input type="text" [(ngModel)]="currentExp.company" placeholder="Ej: Google">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Período</label>
+                    <input type="text" [(ngModel)]="currentExp.period" placeholder="Ej: 2021 - Presente">
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Descripción de Logros</label>
+                <textarea [(ngModel)]="currentExp.description" rows="5" placeholder="Describe tus responsabilidades y logros..."></textarea>
+            </div>
+            
+            <div class="form-actions" style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                <button class="ghost-btn" (click)="showExpModal = false">Cancelar</button>
+                <button class="glow-btn" (click)="saveExperience()">Guardar Experiencia</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL EDUCACIÓN -->
+<div class="modal-overlay" *ngIf="showEduModal">
+    <div class="glass modal-content animate">
+        <div class="form-header">
+            <h3>{{ editingEduIndex >= 0 ? 'Editar' : 'Nueva' }} Formación</h3>
+            <button class="close-btn" (click)="showEduModal = false">×</button>
+        </div>
+        
+        <div class="admin-form">
+            <div class="form-group">
+                <label>Título Obtenido</label>
+                <input type="text" [(ngModel)]="currentEdu.degree" placeholder="Ej: Ingeniería en Sistemas">
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 2;">
+                    <label>Institución Universitaria / Escuela</label>
+                    <input type="text" [(ngModel)]="currentEdu.institution" placeholder="Ej: Universidad Nacional">
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Año</label>
+                    <input type="text" [(ngModel)]="currentEdu.year" placeholder="Ej: 2018 - 2023">
+                </div>
+            </div>
+            
+            <div class="form-actions" style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 20px;">
+                <button class="ghost-btn" (click)="showEduModal = false">Cancelar</button>
+                <button class="glow-btn" (click)="saveEducation()">Guardar Formación</button>
+            </div>
+        </div>
+    </div>
+</div>

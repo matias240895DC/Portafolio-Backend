@@ -4,6 +4,10 @@ import { Model } from 'mongoose';
 import { Contact } from './entities/contact.schema';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
+import {
+  buildContactHtmlEmail,
+  buildContactTextEmail,
+} from './templates/contact-email.template';
 
 @Injectable()
 export class ContactService {
@@ -32,11 +36,17 @@ export class ContactService {
 
     // Send Email
     try {
+      const subject = `Nuevo mensaje de ${contactDto.name} - Portfolio`;
+      const text = buildContactTextEmail(contactDto);
+      const html = buildContactHtmlEmail(contactDto);
+
       await this.transporter.sendMail({
-        from: `"${contactDto.name}" <${this.configService.get('MAIL_FROM')}>`,
+        from: `"Portfolio Contact" <${this.configService.get('MAIL_FROM')}>`,
         to: this.configService.get('ADMIN_EMAIL'),
-        subject: `New Portfolio Message from ${contactDto.name}`,
-        text: `From: ${contactDto.name} (${contactDto.email})\nCompany: ${contactDto.company || 'N/A'}\n\nMessage:\n${contactDto.message}`,
+        replyTo: `"${contactDto.name}" <${contactDto.email}>`,
+        subject,
+        text,
+        html,
       });
       this.logger.log(`Email sent from ${contactDto.email}`);
     } catch (error) {
@@ -51,7 +61,9 @@ export class ContactService {
   }
 
   async markAsRead(id: string) {
-    return this.contactModel.findByIdAndUpdate(id, { read: true }, { new: true }).exec();
+    return this.contactModel
+      .findByIdAndUpdate(id, { read: true }, { new: true })
+      .exec();
   }
 
   async remove(id: string) {

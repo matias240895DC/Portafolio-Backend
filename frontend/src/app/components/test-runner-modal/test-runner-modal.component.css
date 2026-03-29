@@ -14,11 +14,32 @@
   width: 100%;
   max-width: 800px;
   background: #0d0d0f;
-  border: 1px solid #1e1e24;
+  border: 1px solid var(--glass-stroke);
   border-radius: 12px;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px rgba(99, 102, 241, 0.1);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 20px var(--primary-glow);
   overflow: hidden;
-  font-family: 'Fira Code', 'Courier New', Courier, monospace;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  position: relative;
+}
+
+/* Scanline Overlay */
+.terminal-window::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.1) 50%
+    ), linear-gradient(
+        90deg, 
+        rgba(255, 0, 0, 0.02), 
+        rgba(0, 255, 0, 0.01), 
+        rgba(0, 0, 255, 0.02)
+    );
+    background-size: 100% 4px, 3px 100%;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.3;
 }
 
 .terminal-header {
@@ -55,12 +76,14 @@
 
 .terminal-body {
   padding: 25px;
-  height: 450px;
+  height: 480px;
   overflow-y: auto;
   color: #d1d1e0;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  background: radial-gradient(circle at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+  position: relative;
 }
 
 .terminal-body::-webkit-scrollbar {
@@ -102,13 +125,52 @@
 .test-name { font-weight: 600; }
 .test-status { font-size: 0.8rem; font-weight: 800; }
 
+.system-status {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    letter-spacing: 0.15em;
+    margin-bottom: 15px;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--primary);
+}
+
+.pulse {
+    animation: terminalPulse 2s infinite;
+}
+
+@keyframes terminalPulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.5; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
 .progress-container {
   margin-top: auto;
   padding-top: 20px;
 }
 
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.6rem;
+    font-weight: 800;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
 .progress-bar {
-  height: 4px;
+  height: 6px;
   background: rgba(255, 255, 255, 0.05);
   border-radius: 4px;
   overflow: hidden;
@@ -116,9 +178,18 @@
 
 .progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, #6366f1, #a855f7);
-  transition: width 0.3s ease;
-  box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 15px var(--primary-glow);
+  position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; width: 30px;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.4));
+    filter: blur(5px);
 }
 
 .final-screen {

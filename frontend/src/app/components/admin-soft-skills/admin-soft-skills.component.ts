@@ -27,6 +27,25 @@ export class AdminSoftSkillsComponent implements OnInit {
   };
   editingId: string | null = null;
   iconSearch = '';
+  currentPage = 1;
+  pageSize = 5;
+
+  get totalPages() {
+    return Math.ceil(this.skills.length / this.pageSize);
+  }
+
+  get paginatedSkills() {
+    const start = (this.currentPage - 1) * this.pageSize;
+    return this.skills.slice(start, start + this.pageSize);
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) this.currentPage++;
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) this.currentPage--;
+  }
 
   constructor(
     private dataService: DataService,

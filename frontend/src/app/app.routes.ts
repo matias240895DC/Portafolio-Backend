@@ -10,6 +10,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { AdminProjectsComponent } from './components/admin-projects/admin-projects.component';
 import { AdminStacksComponent } from './components/admin-stacks/admin-stacks.component';
 import { AdminProfileComponent } from './components/admin-profile/admin-profile.component';
+import { AdminTimelineComponent } from './components/admin-timeline/admin-timeline.component';
 
 import { AdminSoftSkillsComponent } from './components/admin-soft-skills/admin-soft-skills.component';
 import { AdminSettingsComponent } from './components/admin-settings/admin-settings.component';
@@ -31,6 +32,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: 'projects', component: AdminProjectsComponent },
+      { path: 'timeline', component: AdminTimelineComponent },
       { path: 'stacks', component: AdminStacksComponent },
       { path: 'soft-skills', component: AdminSoftSkillsComponent },
       { path: 'testimonials', component: AdminTestimonialsComponent },

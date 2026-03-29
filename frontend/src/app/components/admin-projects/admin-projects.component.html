@@ -15,7 +15,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let p of projects">
+      <tr *ngFor="let p of paginatedProjects">
         <td><img [src]="p.imageUrl || 'assets/placeholder.png'" class="table-img" alt="Project"></td>
         <td>{{ p.name }}</td>
         <td>{{ p.ranking }}/5</td>
@@ -40,6 +40,17 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- Pagination Controls -->
+  <div class="pagination-controls" *ngIf="projects.length > 0">
+      <button class="pagination-btn" (click)="prevPage()" [disabled]="currentPage === 1">
+          <span>←</span> Anterior
+      </button>
+      <div class="page-info">Página <span>{{ currentPage }}</span> de {{ totalPages }}</div>
+      <button class="pagination-btn" (click)="nextPage()" [disabled]="currentPage === totalPages">
+          Siguiente <span>→</span>
+      </button>
+  </div>
 </div>
 
 <!-- Modal Form -->

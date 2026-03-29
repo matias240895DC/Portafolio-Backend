@@ -80,13 +80,18 @@ input, textarea {
   border: 1px solid var(--glass-stroke);
   border-radius: 8px;
   padding: 12px;
-  color: white;
+  color: var(--text-main);
   transition: var(--transition);
 }
 
 input:focus, textarea:focus {
   outline: none;
   border-color: var(--primary);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-dim);
 }
 
 .checkbox {

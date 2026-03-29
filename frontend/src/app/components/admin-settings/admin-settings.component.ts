@@ -19,6 +19,23 @@ export class AdminSettingsComponent implements OnInit {
     heroTitle1: '',
     heroTitle2: '',
     heroDescription: '',
+    consoleTitleExperience: 'Experiencia Laboral',
+    consoleTitleEducation: 'Formación Académica',
+    consoleTitleStacksCentral: 'TECNOLOGÍAS CENTRALES',
+    consoleTitleStacksSoft: 'COMPETENCIAS ESTRATÉGICAS',
+    consoleTitleTerminal: 'TERMINAL_ARQUITECTÓNICA',
+    consoleTitleTab1: 'SISTEMA',
+    consoleTitleTab2: 'HISTORIAL',
+    consoleTitleTab3: 'TECNOLOGÍAS',
+    consoleTitleTab4: 'PROYECTOS',
+    consoleTitleTab5: 'FEEDBACK',
+    projectTitleAnalysis: 'ANÁLISIS TÉCNICO',
+    projectTitleStack: 'ARQUITECTURA & STACK',
+    projectTitleLinks: 'ENLACES DEL PROYECTO',
+    projectTitleActions: 'COMANDO & CONTROL',
+    projectLabelChallenge: 'DESAFÍO',
+    projectLabelSolution: 'SOLUCIÓN',
+    projectLabelImpact: 'IMPACTO',
     themeMode: 'dark',
     lightTheme: {
       primaryColor: '#6366f1',
@@ -27,7 +44,16 @@ export class AdminSettingsComponent implements OnInit {
       backgroundColor: '#f8fafc',
       textColor: '#0f172a',
       backgroundType: 'solid',
-      backgroundGradient: ''
+      backgroundGradient: '',
+      blueprintLinesEnabled: true,
+      tiltEffectEnabled: true,
+      codeShadowEnabled: true,
+      blueprintOpacity: 0.1,
+      consoleCardBg: 'rgba(255, 255, 255, 0.03)',
+      consoleCardBorder: 'rgba(255, 255, 255, 0.1)',
+      successColor: '#10b981',
+      errorColor: '#ef4444',
+      warningColor: '#fbbf24'
     },
     darkTheme: {
       primaryColor: '#6366f1',
@@ -36,9 +62,22 @@ export class AdminSettingsComponent implements OnInit {
       backgroundColor: '#0a0a0c',
       textColor: '#f8fafc',
       backgroundType: 'solid',
-      backgroundGradient: ''
+      backgroundGradient: '',
+      blueprintLinesEnabled: true,
+      tiltEffectEnabled: true,
+      codeShadowEnabled: true,
+      blueprintOpacity: 0.1,
+      consoleCardBg: 'rgba(255, 255, 255, 0.03)',
+      consoleCardBorder: 'rgba(255, 255, 255, 0.1)',
+      successColor: '#10b981',
+      errorColor: '#ef4444',
+      warningColor: '#fbbf24'
     }
   };
+
+  // Tab State Logic
+  activeTab: 'brand' | 'hero' | 'appearance' = 'brand';
+  activeSubTab: 'colors' | 'signature' | 'labels' = 'colors';
 
   constructor(
     private configService: ConfigService,
@@ -46,13 +85,23 @@ export class AdminSettingsComponent implements OnInit {
     private dataService: DataService
   ) {}
 
+  switchTab(tab: 'brand' | 'hero' | 'appearance'): void {
+      this.activeTab = tab;
+  }
+
+  switchSubTab(tab: 'colors' | 'signature' | 'labels'): void {
+      this.activeSubTab = tab;
+  }
+
   ngOnInit() {
     this.configService.config$.subscribe(c => {
       if (c) {
-        this.config = { ...c };
-        // Ensure theme objects exist if coming from old DB
-        if (!this.config.lightTheme) this.config.lightTheme = { ...this.config as any };
-        if (!this.config.darkTheme) this.config.darkTheme = { ...this.config as any };
+        this.config = {
+          ...this.config,
+          ...c,
+          lightTheme: { ...this.config.lightTheme, ...(c.lightTheme || {}) },
+          darkTheme: { ...this.config.darkTheme, ...(c.darkTheme || {}) }
+        };
       }
     });
   }
@@ -73,6 +122,14 @@ export class AdminSettingsComponent implements OnInit {
         error: (err) => this.toast.error('Error al subir el logo')
       });
     }
+  }
+
+  removeLogo() {
+    this.config.logoUrl = '';
+    this.configService.updateConfig({ logoUrl: '' }).subscribe({
+      next: () => this.toast.success('Logo eliminado correctamente'),
+      error: () => this.toast.error('Error al eliminar el logo')
+    });
   }
 
   saveConfig() {

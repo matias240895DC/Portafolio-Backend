@@ -1,20 +1,36 @@
 const mongoose = require('mongoose');
-const MONGO_URI = 'mongodb+srv://matiasdeicastelli83_db_user:WPDrXCWQ6KllSyMk@cluster0.gbkazd6.mongodb.net/portfolio';
+const http = require('http');
+require('dotenv').config();
 
-async function checkDB() {
-    await mongoose.connect(MONGO_URI);
-    
-    const ProfileSchema = new mongoose.Schema({
-        about: String,
-        socialLinks: Object
-    }, { strict: false });
-    
-    const Profile = mongoose.model('Profile', ProfileSchema);
-    
-    const profiles = await Profile.find();
+async function check() {
+  await mongoose.connect(process.env.MONGO_URI);
+  const Profile = mongoose.model('Profile', new mongoose.Schema({ socialLinks: Object }, { strict: false }));
+  const profile = await Profile.findOne({});
+  const cvUrl = profile?.socialLinks?.cvUrl;
+  console.log('--- PROFILE CV URL ---');
+  console.log(cvUrl);
+  console.log('----------------------');
 
+  if (cvUrl && cvUrl.includes('localhost')) {
+    const url = new URL(cvUrl);
+    // Force port 10000 for local nestjs test
+    const testUrl = `http://127.0.0.1:10000${url.pathname}`;
+    console.log(`Testing backend static serve at: ${testUrl}`);
     
-    await mongoose.disconnect();
+    http.get(testUrl, (res) => {
+      console.log(`STATUS: ${res.statusCode}`);
+      console.log('HEADERS: ', JSON.stringify(res.headers));
+      process.exit(0);
+    }).on('error', (e) => {
+      console.error(`Got error: ${e.message}`);
+      process.exit(1);
+    });
+  } else {
+    process.exit(0);
+  }
 }
 
-checkDB().catch(console.error);
+check().catch(err => {
+  console.error(err);
+  process.exit(1);
+});

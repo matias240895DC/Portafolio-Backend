@@ -25,6 +25,7 @@ export class TestRunnerModalComponent implements OnInit, OnDestroy, AfterViewChe
   logs: LogEntry[] = [];
   simulationFinished: boolean = false;
   executionTime: number = 0;
+  progress: number = 0;
   private eventSource: EventSource | null = null;
   private startTime: number = 0;
 
@@ -77,10 +78,15 @@ export class TestRunnerModalComponent implements OnInit, OnDestroy, AfterViewChe
 
         if (data.done) {
           this.simulationFinished = true;
+          this.progress = 100;
           this.executionTime = Date.now() - this.startTime;
           this.closeConnection();
         } else if (data.text) {
           this.addLog(data.text, data.type || 'info');
+          // Smoothly increment progress up to 95%
+          if (this.progress < 95) {
+            this.progress += Math.random() * 5;
+          }
         }
         this.cdr.detectChanges();
       } catch (e) {

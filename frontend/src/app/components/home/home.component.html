@@ -1,60 +1,266 @@
-<div class="home-container">
-  <!-- Hero Section -->
+<div class="home-wrapper">
+  <!-- Hero Section (Full Width Background) -->
   <section class="hero animate">
-    <div class="hero-content" *ngIf="configService.config$ | async as config">
-      <div class="hero-avatar" *ngIf="profile?.avatarUrl">
-        <img [src]="profile.avatarUrl" alt="Matías">
-      </div>
-      <h3 class="accent-text">{{ config.heroTitle1 }}</h3>
-      <h1 [innerHTML]="config.heroTitle2"></h1>
-      <p class="hero-sub">{{ config.heroDescription }}</p>
+    <!-- Aurora Decorative Layers -->
+    <div class="bg-blobs">
+      <div class="blob-1"></div>
+      <div class="blob-2"></div>
+      <div class="blob-3"></div>
+    </div>
 
-      <div class="hero-btns">
-        <a class="glow-btn" routerLink="/projects"
-          style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Ver Proyectos</a>
-        <button class="ghost-btn" routerLink="/contact">Contactar</button>
+    <div class="container">
+      <div class="hero-content" *ngIf="configService.config$ | async as config">
+        <div class="hero-avatar" *ngIf="profile?.avatarUrl">
+          <img [src]="profile.avatarUrl" alt="Matías">
+        </div>
+        <h3 class="accent-text">{{ config.heroTitle1 }}</h3>
+        <h1 [innerHTML]="config.heroTitle2"></h1>
+        <p class="hero-sub">{{ config.heroDescription }}</p>
+
+        <div class="hero-btns">
+          <a class="glow-btn" routerLink="/projects"
+            style="display: flex; align-items: center; justify-content: center; text-decoration: none;">Ver
+            Proyectos</a>
+          <button class="ghost-btn" routerLink="/contact">Contactar</button>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about-section animate" *ngIf="profile">
-    <div class="glass about-card">
-      <div class="about-header">
-        <div class="section-badge">DESCUBRE MÁS</div>
-        <h2>Sobre <span>Mí</span></h2>
-      </div>
-      <div class="about-content">
-        <div class="about-text-content">
-          <p class="about-text">{{ profile.about }}</p>
+  <!-- Professional Command Center Console -->
+  <section id="console" class="gd-console-section animate" *ngIf="profile && (configService.config$ | async) as config">
+    <div class="gd-code-shadow"></div>
+    
+    <div class="container gd-console-container">
+      <div class="gd-console-frame">
+        <!-- Console Header: Architectural Navigation -->
+        <div class="gd-console-header">
+          <div class="header-inner">
+            <div class="gd-console-meta">
+              <span class="terminal-id">{{ config.consoleTitleTerminal }}</span>
+              <span class="terminal-ver">v4.0.2</span>
+            </div>
+            <div class="gd-tabs">
+              <button class="tab-btn" (click)="setActiveTab('SYSTEM')" [class.active]="activeTab === 'SYSTEM'">
+                <span class="tab-idx">01</span> [{{ config.consoleTitleTab1 }}]
+              </button>
+              <button class="tab-btn" (click)="setActiveTab('HISTORY')" [class.active]="activeTab === 'HISTORY'">
+                <span class="tab-idx">02</span> [{{ config.consoleTitleTab2 }}]
+              </button>
+              <button class="tab-btn" (click)="setActiveTab('STACKS')" [class.active]="activeTab === 'STACKS'">
+                <span class="tab-idx">03</span> [{{ config.consoleTitleTab3 }}]
+              </button>
+              <button class="tab-btn" (click)="setActiveTab('PROJECTS')" [class.active]="activeTab === 'PROJECTS'">
+                <span class="tab-idx">04</span> [{{ config.consoleTitleTab4 || 'PROYECTOS' }}]
+              </button>
+              <button class="tab-btn" (click)="setActiveTab('FEEDBACK')" [class.active]="activeTab === 'FEEDBACK'">
+                <span class="tab-idx">05</span> [{{ config.consoleTitleTab5 || 'FEEDBACK' }}]
+              </button>
+            </div>
+          </div>
         </div>
 
-        <div class="stats-grid">
-          <div class="stat-card">
-            <div class="stat-icon">🎓</div>
-            <div class="stat-info">
-              <span class="stat-value">{{ profile.yearsOfExperience }}+</span>
-              <span class="stat-label">Años de Experiencia</span>
-            </div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-icon">🚀</div>
-            <div class="stat-info">
-              <span class="stat-value">{{ projects.length }}+</span>
-              <span class="stat-label">Desafíos Logrados</span>
-            </div>
-          </div>
-          <div class="stat-card" *ngIf="profile.languages && profile.languages.length > 0">
-            <div class="stat-icon">🌐</div>
-            <div class="stat-info">
-              <div class="lang-mini-list">
-                <div *ngFor="let lang of profile.languages" class="lang-mini-item">
-                  <div class="lang-mini-header">
-                    <img *ngIf="lang.icon" [src]="lang.icon" alt="LangIcon" class="lang-mini-icon">
-                    <span class="stat-value mini">{{ lang.name }}</span>
+        <div class="gd-console-body" *ngIf="activeTab">
+          <!-- TAB 01: SYSTEM (SISTEMA) -->
+          <div class="tab-content bio-tab" *ngIf="activeTab === 'SYSTEM'">
+            <div class="tab-content-inner">
+              <div class="gd-top-layout">
+                <div class="gd-narrative">
+                  <h1 class="gd-title">
+                    Backend Engineer <br>
+                    <small>Diseño de infraestructura escalable</small>
+                  </h1>
+                  <div class="gd-bio">
+                    <p>{{ profile.about }}</p>
                   </div>
-                  <span class="stat-label mini">{{ lang.level }}</span>
                 </div>
+
+                <div class="gd-stats-stack">
+                  <div class="gd-stat-card">
+                    <div class="gd-card-glow"></div>
+                    <div class="bp-line bp-h"></div>
+                    <div class="bp-line bp-v"></div>
+                    <div class="gd-card-content">
+                      <div class="gd-icon-box">📊</div>
+                      <div class="gd-val-wrap">
+                        <div class="v-main">
+                          <span class="v-num">{{ profile.yearsOfExperience }}+</span>
+                          <span class="v-unit">AÑOS_XP</span>
+                        </div>
+                        <span class="gd-lab">Trayectoria de alto rendimiento</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="gd-stat-card">
+                    <div class="gd-card-glow"></div>
+                    <div class="bp-line bp-h"></div>
+                    <div class="bp-line bp-v"></div>
+                    <div class="gd-card-content">
+                      <div class="gd-icon-box">🏗️</div>
+                      <div class="gd-val-wrap">
+                        <div class="v-main">
+                          <span class="v-num">{{ projects.length }}+</span>
+                          <span class="v-unit">PROYECTOS</span>
+                        </div>
+                        <span class="gd-lab">Entregas de Producción</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="gd-stat-card">
+                    <div class="gd-card-glow"></div>
+                    <div class="bp-line bp-h"></div>
+                    <div class="bp-line bp-v"></div>
+                    <div class="gd-card-content">
+                      <div class="gd-icon-box">🌐</div>
+                      <div class="gd-val-wrap">
+                        <div class="gd-langs-grid">
+                          <div *ngFor="let lang of profile.languages" class="lang-tag">
+                            <span class="l-name">{{ lang.name }}</span>
+                            <span class="l-badge">{{ lang.level }}</span>
+                          </div>
+                        </div>
+                        <span class="gd-lab">IDIOMAS</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 02: HISTORY (HISTORIAL) -->
+          <div class="tab-content history-tab" *ngIf="activeTab === 'HISTORY'">
+            <div class="tab-content-inner">
+              <div class="timeline-console-grid">
+                <div class="console-col">
+                  <div class="col-head"><span class="c-icon">💼</span><h3>{{ config.consoleTitleExperience }}</h3></div>
+                  <div class="c-timeline-track">
+                    <div class="c-timeline-item" *ngFor="let exp of profile.experience">
+                      <div class="bp-line bp-h"></div>
+                      <div class="bp-line bp-v"></div>
+                      <div class="item-date">{{ exp.period }}</div>
+                      <h4 class="item-title">{{ exp.title }}</h4>
+                      <div class="item-sub">{{ exp.company }}</div>
+                      <p class="item-desc" *ngIf="exp.description">{{ exp.description }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="console-col">
+                  <div class="col-head"><span class="c-icon">🎓</span><h3>{{ config.consoleTitleEducation }}</h3></div>
+                  <div class="c-timeline-track">
+                    <div class="c-timeline-item" *ngFor="let edu of profile.education">
+                      <div class="bp-line bp-h"></div>
+                      <div class="bp-line bp-v"></div>
+                      <div class="item-date">{{ edu.year }}</div>
+                      <h4 class="item-title">{{ edu.degree }}</h4>
+                      <div class="item-sub">{{ edu.institution }}</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 03: STACKS (TECNOLOGÍAS) -->
+          <div class="tab-content stacks-tab" *ngIf="activeTab === 'STACKS'">
+            <div class="tab-content-inner">
+              <div class="stack-view-grid">
+                <div class="stack-category">
+                  <h3 class="cat-title">{{ config.consoleTitleStacksCentral }}</h3>
+                  <div class="tech-grid">
+                    <div class="tech-pill" *ngFor="let s of paginatedStacks" [style.--p-color]="getSkillColor(s)">
+                      <div class="bp-line bp-h"></div>
+                      <div class="bp-line bp-v"></div>
+                      <img [src]="getStackIcon(s)" [alt]="s.name" class="tech-icon" *ngIf="getStackIcon(s)">
+                      <span class="tech-name">{{ s.name }}</span>
+                    </div>
+                  </div>
+                  <!-- Console Pagination Stacks -->
+                  <div class="console-pagination" *ngIf="stacks.length > 0">
+                      <button class="console-pag-btn" (click)="currentPageStacks = currentPageStacks - 1" [disabled]="currentPageStacks === 1">
+                          PREV
+                      </button>
+                      <div class="console-pag-info">PAGE <span>{{ currentPageStacks }}</span> / {{ totalPagesStacks }}</div>
+                      <button class="console-pag-btn" (click)="currentPageStacks = currentPageStacks + 1" [disabled]="currentPageStacks === totalPagesStacks">
+                          NEXT
+                      </button>
+                  </div>
+                </div>
+                <div class="stack-category">
+                  <h3 class="cat-title">{{ config.consoleTitleStacksSoft }}</h3>
+                  <div class="tech-grid">
+                    <div class="tech-pill soft-pill" *ngFor="let s of paginatedSoftSkills" [style.--p-color]="getSkillColor(s)">
+                      <div class="bp-line bp-h"></div>
+                      <div class="bp-line bp-v"></div>
+                      <span class="tech-name">{{ s.name }}</span>
+                    </div>
+                  </div>
+                  <!-- Console Pagination Soft Skills -->
+                  <div class="console-pagination" *ngIf="softSkills.length > 0">
+                      <button class="console-pag-btn" (click)="currentPageSoftSkills = currentPageSoftSkills - 1" [disabled]="currentPageSoftSkills === 1">
+                          PREV
+                      </button>
+                      <div class="console-pag-info">PAGE <span>{{ currentPageSoftSkills }}</span> / {{ totalPagesSoftSkills }}</div>
+                      <button class="console-pag-btn" (click)="currentPageSoftSkills = currentPageSoftSkills + 1" [disabled]="currentPageSoftSkills === totalPagesSoftSkills">
+                          NEXT
+                      </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- TAB 04: PROJECTS (PROYECTOS) -->
+          <div class="tab-content projects-tab" *ngIf="activeTab === 'PROJECTS'">
+            <div class="tab-content-inner">
+              <div class="section-header console-header-fix">
+                <h2 class="gd-title">
+                  Proyectos <br>
+                  <small>Una selección de mis desarrollos más robustos</small>
+                </h2>
+              </div>
+              <div class="project-grid-console">
+                <app-project-list [projects]="projects"></app-project-list>
+              </div>
+            </div>
+          </div>
+          <!-- TAB 05: FEEDBACK (TESTIMONIALS) -->
+          <div class="tab-content feedback-tab" *ngIf="activeTab === 'FEEDBACK'">
+            <div class="tab-content-inner">
+              <div class="section-header console-header-fix">
+                <h2 class="gd-title">
+                  Feedbacks <br>
+                  <small>Lo que otros dicen sobre mi trabajo</small>
+                </h2>
+                <button class="glow-btn sm" routerLink="/feedback" style="margin-top: 20px;">Dejar Comentario</button>
+              </div>
+              <div class="testimonial-grid" style="margin-top: 30px;">
+                <div *ngFor="let t of paginatedTestimonials" class="glass testimonial-card">
+                  <div class="quote-icon">“</div>
+                  <div class="testimonial-rating-stars">
+                    <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="t.rating >= star">★</span>
+                  </div>
+                  <p class="t-msg">"{{ t.message }}"</p>
+                  <div class="testimonial-footer">
+                    <div class="t-avatar">{{ t.name.charAt(0) }}</div>
+                    <div class="t-info">
+                      <span class="t-name">{{ t.name }}</span>
+                      <span class="t-company" *ngIf="t.company">{{ t.company }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Console Pagination Testimonials -->
+              <div class="console-pagination" *ngIf="testimonials.length > 0">
+                  <button class="console-pag-btn" (click)="currentPageTestimonials = currentPageTestimonials - 1" [disabled]="currentPageTestimonials === 1">
+                      PREV
+                  </button>
+                  <div class="console-pag-info">PAGE <span>{{ currentPageTestimonials }}</span> / {{ totalPagesTestimonials }}</div>
+                  <button class="console-pag-btn" (click)="currentPageTestimonials = currentPageTestimonials + 1" [disabled]="currentPageTestimonials === totalPagesTestimonials">
+                      NEXT
+                  </button>
               </div>
             </div>
           </div>
@@ -63,74 +269,10 @@
     </div>
   </section>
 
-  <!-- Soft Skills Section -->
-  <section id="skills" class="skills-section animate" *ngIf="softSkills.length > 0">
-    <div class="section-header">
-      <h2>Habilidades <span>Interpersonales</span></h2>
-      <p>Competencias que potencian mi trabajo técnico</p>
-    </div>
-    <div class="skills-carousel">
-      <div class="skill-pill" *ngFor="let s of softSkills" [style.--skill-color]="getSkillColor(s)">
-        <div class="skill-icon" *ngIf="s.iconLibrary?.url || s.icon">
-          <img [src]="s.iconLibrary?.url || s.icon" [alt]="s.name">
-        </div>
-        <span class="skill-name">{{ s.name }}</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- Tech Stacks Section -->
-  <section id="stacks" class="skills-section animate" *ngIf="stacks.length > 0">
-    <div class="section-header">
-      <h2>Mi <span>Stack</span> Tecnológico</h2>
-      <p>Herramientas y tecnologías que domino</p>
-    </div>
-    <div class="skills-carousel">
-      <div class="skill-pill" *ngFor="let s of stacks" [style.--skill-color]="getSkillColor(s)">
-        <div class="skill-icon" *ngIf="getStackIcon(s)">
-          <img [src]="getStackIcon(s)" [alt]="s.name">
-        </div>
-        <span class="skill-name">{{ s.name }}</span>
-      </div>
-    </div>
-  </section>
 
-  <!-- Projects Section -->
-  <section id="projects" class="projects-section animate">
-    <div class="section-header">
-      <h2>Proyectos <span>Destacados</span></h2>
-      <p>Una selección de mis trabajos más recientes</p>
-    </div>
-    <div class="container">
-      <div class="project-grid">
-        <app-project-list [projects]="projects"></app-project-list>
-      </div>
-    </div>
-  </section>
 
-  <!-- Testimonials Section -->
-  <section id="testimonials" class="testimonials-section animate">
-    <div class="section-header">
-      <h2><span>Feedbacks</span> Reales</h2>
-      <p>Lo que otros dicen sobre mi trabajo</p>
-      <button class="glow-btn sm" routerLink="/feedback" style="margin-top: 20px;">Dejar Comentario</button>
-    </div>
 
-    <div class="testimonial-grid">
-      <div *ngFor="let t of testimonials" class="glass testimonial-card">
-        <div class="quote-icon">“</div>
-        <div class="testimonial-rating-stars">
-          <span *ngFor="let star of [1,2,3,4,5]" [class.filled]="t.rating >= star">★</span>
-        </div>
-        <p class="t-msg">"{{ t.message }}"</p>
-        <div class="testimonial-footer">
-          <div class="t-avatar">{{ t.name.charAt(0) }}</div>
-          <div class="t-info">
-            <span class="t-name">{{ t.name }}</span>
-            <span class="t-company" *ngIf="t.company">{{ t.company }}</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+
+  
+</div>

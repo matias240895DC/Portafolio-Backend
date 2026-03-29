@@ -5,7 +5,9 @@ import { ContactController } from './contact.controller';
 import { Contact, ContactSchema } from './entities/contact.schema';
 
 @Module({
-  imports: [MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }])],
+  imports: [
+    MongooseModule.forFeature([{ name: Contact.name, schema: ContactSchema }]),
+  ],
   controllers: [ContactController],
   providers: [ContactService],
 })

@@ -20,8 +20,40 @@ export class HomeComponent implements OnInit {
   testimonials: any[] = [];
   softSkills: any[] = [];
   stacks: any[] = [];
+  activeTab: string = 'SYSTEM';
+
+  // Stacks Pagination
+  currentPageStacks = 1;
+  pageSizeStacks = 10;
+  get totalPagesStacks() { return Math.ceil(this.stacks.length / this.pageSizeStacks); }
+  get paginatedStacks() {
+    const start = (this.currentPageStacks - 1) * this.pageSizeStacks;
+    return this.stacks.slice(start, start + this.pageSizeStacks);
+  }
+
+  // Soft Skills Pagination (Console)
+  currentPageSoftSkills = 1;
+  pageSizeSoftSkills = 10;
+  get totalPagesSoftSkills() { return Math.ceil(this.softSkills.length / this.pageSizeSoftSkills); }
+  get paginatedSoftSkills() {
+    const start = (this.currentPageSoftSkills - 1) * this.pageSizeSoftSkills;
+    return this.softSkills.slice(start, start + this.pageSizeSoftSkills);
+  }
+
+  // Testimonials Pagination
+  currentPageTestimonials = 1;
+  pageSizeTestimonials = 4;
+  get totalPagesTestimonials() { return Math.ceil(this.testimonials.length / this.pageSizeTestimonials); }
+  get paginatedTestimonials() {
+    const start = (this.currentPageTestimonials - 1) * this.pageSizeTestimonials;
+    return this.testimonials.slice(start, start + this.pageSizeTestimonials);
+  }
 
   constructor(private dataService: DataService, public configService: ConfigService) {}
+
+  setActiveTab(tab: string) {
+    this.activeTab = (this.activeTab === tab) ? '' : tab;
+  }
 
 
   ngOnInit() {
