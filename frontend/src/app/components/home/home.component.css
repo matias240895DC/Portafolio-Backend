@@ -746,45 +746,62 @@ body.light-mode .gd-stat-card {
 
 /* TAB 2: HISTORY (Timeline) */
 .timeline-console-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    max-width: 1200px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+    max-width: 1400px;
+    margin: 40px auto 0 auto;
+    flex-wrap: wrap;
 }
 
-@media (max-width: 1300px) {
-    .timeline-console-grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-        max-width: 600px;
-        justify-items: center;
-    }
-    
-    .console-col {
-        width: 100%;
-    }
+.console-col {
+    flex: 1;
+    min-width: 380px;
+    max-width: 550px;
+}
+
+.col-head {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 45px;
+}
+
+.c-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px rgba(99, 102, 241, 0.3));
+    line-height: 1;
 }
 
 .console-col h3 {
     font-size: 1.8rem;
     font-weight: 800;
-    margin-bottom: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 15px;
+    margin: 0;
+    color: var(--text-main);
+    letter-spacing: -0.02em;
 }
 
 @media (max-width: 1300px) {
-    .console-col h3 {
+    .timeline-console-grid {
+        grid-template-columns: 1fr;
+        gap: 80px;
+        max-width: 600px;
+        justify-items: center;
+    }
+    
+    .col-head {
         justify-content: center;
         text-align: center;
     }
     
     .c-timeline-track {
-        max-width: 400px;
+        max-width: 450px;
         margin: 0 auto;
+    }
+    
+    .console-col {
+        min-width: 100%;
+        max-width: 100%;
     }
 }
 
