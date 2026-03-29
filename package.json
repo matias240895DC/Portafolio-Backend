@@ -2,7 +2,7 @@
   "name": "portfolio-monorepo",
   "private": true,
   "scripts": {
-    "build": "npm run build --prefix backend",
+    "build": "npm install --prefix backend && npm run build --prefix backend",
     "start": "npm run start:prod --prefix backend",
     "install-backend": "npm install --prefix backend"
   }
