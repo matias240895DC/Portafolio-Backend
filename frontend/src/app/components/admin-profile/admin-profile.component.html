@@ -77,10 +77,10 @@
                         <input type="text" [(ngModel)]="profile.socialLinks.linkedin" name="linkedin">
                     </div>
                     <div class="form-group">
-                        <label>URL de CV (PDF)</label>
+                        <label>URL de CV (PDF u otro link externo)</label>
                         <div style="display: flex; gap: 10px; align-items: center;">
-                            <input type="text" [(ngModel)]="profile.socialLinks.cvUrl" name="cv" style="flex: 1;" readonly placeholder="Ningún CV cargado">
-                            <button type="button" class="add-btn" style="white-space: nowrap;" (click)="cvInput.click()">Subir PDF</button>
+                            <input type="text" [(ngModel)]="profile.socialLinks.cvUrl" name="cv" style="flex: 1;" placeholder="Pega un link o sube un PDF">
+                            <button type="button" class="add-btn" style="white-space: nowrap;" (click)="cvInput.click()">Subir a Cloudinary</button>
                         </div>
                         <input type="file" #cvInput (change)="onCvSelected($event)" hidden accept="application/pdf">
                         <div class="cv-status" *ngIf="profile.socialLinks.cvUrl" style="margin-top: 10px;">
