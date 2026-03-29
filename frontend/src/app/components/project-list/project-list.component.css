@@ -146,7 +146,7 @@
 .dashboard-nav {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(128, 128, 128, 0.08); /* Replaced hardcoded black */
     border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 20px;
     padding: 12px;
@@ -154,11 +154,11 @@
     margin-bottom: 10px;
     backdrop-filter: blur(20px);
     width: 100%;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 20px rgba(0,0,0,0.05);
 }
 
 .nav-item {
-    background: rgba(255, 255, 255, 0.02);
+    background: rgba(128, 128, 128, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.03);
     padding: 14px 16px;
     display: flex;
@@ -219,11 +219,11 @@
 }
 
 .nav-item:hover {
-    background: rgba(255, 255, 255, 0.06);
+    background: rgba(128, 128, 128, 0.12);
     color: var(--text-main);
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    border-color: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: var(--glass-stroke);
 }
 
 .nav-item:hover .icon {
@@ -608,7 +608,7 @@
 /* Achievement Tabs - Technical Sub-nav */
 .achievement-tabs {
   display: flex;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(128, 128, 128, 0.08); /* Replaced hardcoded black */
   border: 1px solid rgba(255, 255, 255, 0.05);
   border-radius: 12px;
   padding: 4px;
@@ -637,8 +637,8 @@
 
 .achievement-tabs .tab-btn:hover {
   color: var(--text-main);
-  background: rgba(255, 255, 255, 0.05);
-  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(128, 128, 128, 0.12);
+  border-color: var(--glass-stroke);
   transform: translateY(-1px);
 }
 
@@ -661,7 +661,7 @@
 }
 
 .technical-achievements-container {
-    background: rgba(0, 0, 0, 0.3);
+    background: rgba(128, 128, 128, 0.05); /* Replaced hardcoded black */
     border: 1px solid var(--glass-stroke);
     border-radius: 8px;
     padding: 20px;
