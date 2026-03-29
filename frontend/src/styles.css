@@ -240,9 +240,9 @@ a {
   background: var(--panel-bg);
   border: 1px solid var(--glass-stroke);
   color: var(--text-main);
-  padding: 8px 16px;
+  padding: 10px 20px;
   border-radius: 8px;
-  font-size: 0.85rem;
+  font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
   transition: var(--transition);
@@ -263,7 +263,7 @@ a {
 }
 
 .page-info {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--text-dim);
   font-weight: 500;
   font-family: 'JetBrains Mono', monospace;
@@ -290,9 +290,9 @@ a {
   background: transparent;
   border: 1px solid rgba(255,255,255,0.1);
   color: var(--text-dim);
-  padding: 6px 14px;
+  padding: 10px 18px;
   font-family: 'JetBrains Mono', monospace;
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   cursor: pointer;
   transition: all 0.3s ease;
   border-radius: 4px;
@@ -312,7 +312,7 @@ a {
 }
 
 .console-pag-info {
-  font-size: 0.65rem;
+  font-size: 0.85rem;
   font-family: 'JetBrains Mono', monospace;
   color: var(--text-dim);
   opacity: 0.8;
