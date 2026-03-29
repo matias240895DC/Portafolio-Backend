@@ -1,13 +1,17 @@
 import { Controller, Post, UploadedFile, UseInterceptors, UseGuards } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
+import { ProfileService } from '../profile/profile.service';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { ApiTags, ApiOperation, ApiConsumes, ApiBody } from '@nestjs/swagger';
 
 @ApiTags('Upload')
 @Controller('upload')
 export class UploadController {
-  constructor(private readonly uploadService: UploadService) {}
+  constructor(
+    private readonly uploadService: UploadService,
+    private readonly profileService: ProfileService
+  ) {}
 
   @Post('image')
   @UseGuards(JwtAuthGuard)
@@ -57,11 +61,9 @@ export class UploadController {
       return { error: 'No PDF file provided' };
     }
     
-    const result = await this.uploadService.uploadPdf(file);
+    // Save PDF buffer directly to MongoDB Profile document
+    const result = await this.profileService.uploadCv(file.buffer);
     
-    return {
-      url: result.secure_url,
-      public_id: result.public_id,
-    };
+    return result; // returns { url: '/api/profile/cv' }
   }
 }

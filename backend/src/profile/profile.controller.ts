@@ -1,4 +1,5 @@
-import { Controller, Get, Body, Patch, UseGuards, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Body, Patch, UseGuards, NotFoundException, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { ProfileService } from './profile.service';
 import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
@@ -22,5 +23,14 @@ export class ProfileController {
   @ApiOperation({ summary: 'Update the personal profile' })
   async update(@Body() updateProfileDto: any) {
     return await this.profileService.update(updateProfileDto);
+  }
+
+  @Get('cv')
+  @ApiOperation({ summary: 'Download the CV PDF' })
+  async downloadCv(@Res() res: Response) {
+    const buffer = await this.profileService.downloadCv();
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', 'inline; filename="cv.pdf"');
+    res.send(buffer);
   }
 }

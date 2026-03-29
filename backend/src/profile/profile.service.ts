@@ -42,4 +42,22 @@ export class ProfileService {
       throw error;
     }
   }
+
+  async uploadCv(buffer: Buffer) {
+    let profile = await this.profileModel.findOne().exec();
+    if (!profile) {
+      profile = new this.profileModel({ socialLinks: {} });
+    }
+    profile.cvFile = buffer;
+    await profile.save();
+    return { url: '/api/profile/cv' };
+  }
+
+  async downloadCv() {
+    const profile = await this.profileModel.findOne().select('+cvFile').exec();
+    if (!profile || !profile.cvFile) {
+      throw new NotFoundException('CV not found');
+    }
+    return profile.cvFile;
+  }
 }

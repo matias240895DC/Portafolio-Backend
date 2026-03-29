@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ConfigService } from '../../services/config.service';
 import { DataService } from '../../services/data.service';
+import { API_CONFIG } from '../../config/api.config';
 
 
 @Component({
@@ -42,7 +43,13 @@ export class NavbarComponent implements OnInit {
     if (this.profile?.socialLinks?.cvUrl) {
       let downloadUrl = this.profile.socialLinks.cvUrl;
       
-      if (!downloadUrl.startsWith('http')) {
+      // If it's a backend API route (MongoDB PDF storage)
+      if (downloadUrl.startsWith('/api')) {
+        const backendHost = API_CONFIG.baseUrl.replace(/\/api$/, '');
+        downloadUrl = backendHost + downloadUrl;
+      } 
+      // Ensure absolute URL for external links
+      else if (!downloadUrl.startsWith('http')) {
         downloadUrl = 'https://' + downloadUrl;
       }
       

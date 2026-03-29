@@ -32,6 +32,9 @@ export class Profile {
   @ApiProperty()
   @Prop()
   avatarUrl: string;
+
+  @Prop({ type: Buffer, select: false })
+  cvFile: Buffer;
 }
 
 export const ProfileSchema = SchemaFactory.createForClass(Profile);
