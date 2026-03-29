@@ -440,7 +440,7 @@ body.light-mode .gd-console-header {
 
 .menu-item {
     background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-stroke);
     padding: 12px 18px;
     color: var(--text-dim);
     font-family: 'JetBrains Mono', monospace;
@@ -457,62 +457,53 @@ body.light-mode .gd-console-header {
 .menu-item .tab-idx {
     opacity: 0.7;
     font-size: 0.65rem;
+    color: var(--primary);
 }
 
 .menu-item.active {
-    background: rgba(99, 102, 241, 0.15);
+    background: var(--primary-soft);
     border-color: var(--primary);
-    color: #fff;
+    color: var(--text-main);
     padding-left: 22px;
 }
 
 .menu-item:hover:not(.active) {
     background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: var(--glass-stroke);
     color: var(--text-main);
 }
 
 /* Light Mode Overrides for Mobile Menu */
 body.light-mode .mobile-tabs-dropdown {
-    background: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.15) !important;
-    backdrop-filter: none !important;
+    background: var(--bg-color) !important;
+    border: 1px solid var(--glass-stroke) !important;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1) !important;
+    backdrop-filter: blur(10px) !important;
 }
 
 body.light-mode .dropdown-header {
-    color: #475569 !important;
-    opacity: 0.8 !important;
+    color: var(--text-dim) !important;
 }
 
 body.light-mode .menu-item {
-    background: #f1f5f9 !important;
-    border-color: #e2e8f0 !important;
-    color: #0f172a !important; /* Extremely dark slate */
-    font-weight: 700 !important;
+    background: rgba(0, 0, 0, 0.02) !important;
+    border-color: var(--glass-stroke) !important;
+    color: var(--text-main) !important;
 }
 
 body.light-mode .menu-item:hover:not(.active) {
-    background: #e2e8f0 !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    color: var(--primary) !important;
+}
+
+body.light-mode .menu-item.active {
+    background: var(--primary-soft) !important;
     color: var(--primary) !important;
     border-color: var(--primary) !important;
 }
 
-body.light-mode .menu-item.active {
-    background: var(--primary) !important;
-    color: #ffffff !important;
-    border-color: var(--primary) !important;
-    font-weight: 900 !important;
-}
-
 body.light-mode .menu-item .tab-idx {
-    color: #475569 !important;
-    opacity: 1 !important;
-}
-
-body.light-mode .menu-item.active .tab-idx {
-    color: #ffffff !important;
-    opacity: 0.8 !important;
+    color: var(--primary) !important;
 }
 
 .gd-tabs {
