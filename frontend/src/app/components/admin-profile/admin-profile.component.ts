@@ -16,6 +16,8 @@ export class AdminProfileComponent implements OnInit {
     about: '',
     yearsOfExperience: 0,
     avatarUrl: '',
+    orbitImageLightUrl: '',
+    orbitImageDarkUrl: '',
     socialLinks: {
       linkedin: '',
       phone: '',
@@ -47,13 +49,23 @@ export class AdminProfileComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
+    this.uploadImageToProfileField(event, 'avatarUrl', 'imagen');
+  }
+
+  onOrbitImageSelected(event: any, mode: 'light' | 'dark') {
+    const targetField = mode === 'light' ? 'orbitImageLightUrl' : 'orbitImageDarkUrl';
+    const targetLabel = mode === 'light' ? 'imagen de modo claro' : 'imagen de modo oscuro';
+    this.uploadImageToProfileField(event, targetField, targetLabel);
+  }
+
+  private uploadImageToProfileField(event: any, field: string, label: string) {
     const file: File = event.target.files[0];
     if (file) {
       this.toast.info('Subiendo imagen...');
       this.dataService.uploadImage(file).subscribe({
         next: (res) => {
-          this.profile.avatarUrl = res.url;
-          this.toast.success('Imagen subida con éxito');
+          this.profile[field] = res.url;
+          this.toast.success(`${label} subida con éxito`);
         },
         error: (err) => {
           console.error(err);

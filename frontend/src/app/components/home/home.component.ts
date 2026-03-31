@@ -124,4 +124,18 @@ export class HomeComponent implements OnInit {
     
     return ''; // No fallback
   }
+
+  get orbitImageUrl(): string {
+    if (!this.profile) return '';
+
+    const lightUrl = this.profile.orbitImageLightUrl || '';
+    const darkUrl = this.profile.orbitImageDarkUrl || '';
+    const isLightMode = this.configService.themeMode === 'light';
+
+    if (isLightMode) {
+      return lightUrl || darkUrl;
+    }
+
+    return darkUrl || lightUrl;
+  }
 }

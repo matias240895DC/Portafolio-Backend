@@ -36,6 +36,32 @@
                     </div>
                     <input type="file" #fileInput (change)="onFileSelected($event)" hidden accept="image/*">
                     <p class="upload-hint">Click para cambiar foto</p>
+
+                    <div class="orbit-images-fields">
+                        <div class="orbit-upload-row">
+                            <label>Imagen orbita modo claro</label>
+                            <div class="orbit-upload-control">
+                                <div class="orbit-thumb" (click)="lightOrbitInput.click()">
+                                    <img *ngIf="profile.orbitImageLightUrl" [src]="profile.orbitImageLightUrl" alt="Orbita claro">
+                                    <span *ngIf="!profile.orbitImageLightUrl">☀️</span>
+                                </div>
+                                <button type="button" class="add-btn" (click)="lightOrbitInput.click()">Subir</button>
+                            </div>
+                            <input type="file" #lightOrbitInput (change)="onOrbitImageSelected($event, 'light')" hidden accept="image/*">
+                        </div>
+
+                        <div class="orbit-upload-row">
+                            <label>Imagen orbita modo oscuro</label>
+                            <div class="orbit-upload-control">
+                                <div class="orbit-thumb" (click)="darkOrbitInput.click()">
+                                    <img *ngIf="profile.orbitImageDarkUrl" [src]="profile.orbitImageDarkUrl" alt="Orbita oscuro">
+                                    <span *ngIf="!profile.orbitImageDarkUrl">🌙</span>
+                                </div>
+                                <button type="button" class="add-btn" (click)="darkOrbitInput.click()">Subir</button>
+                            </div>
+                            <input type="file" #darkOrbitInput (change)="onOrbitImageSelected($event, 'dark')" hidden accept="image/*">
+                        </div>
+                    </div>
                 </div>
                 
                 <div class="form-group flex-1">

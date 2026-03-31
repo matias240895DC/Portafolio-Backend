@@ -39,14 +39,6 @@
     text-overflow: ellipsis;
 }
 
-.nav-logo-img {
-    height: 44px;
-    width: auto;
-    max-width: 180px;
-    border-radius: 6px;
-    object-fit: contain;
-}
-
 .logo span {
   color: var(--primary);
 }
@@ -163,11 +155,6 @@ input:not(:checked) + .slider .moon {
 }
 
 @media (max-width: 1250px) {
-  .nav-logo-img {
-    height: 36px;
-    max-width: 140px;
-  }
-
   .menu-toggle {
     display: flex;
   }

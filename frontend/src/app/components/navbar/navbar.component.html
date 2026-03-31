@@ -6,12 +6,6 @@
         (click)="closeMenu()"
         *ngIf="configService.config$ | async as config"
       >
-        <img
-          *ngIf="config.logoUrl"
-          [src]="config.logoUrl"
-          alt="Logo"
-          class="nav-logo-img"
-        />
         {{ config.logoText }}
       </h2>
     </div>

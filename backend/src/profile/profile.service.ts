@@ -22,6 +22,9 @@ export class ProfileService {
       if (!profile) {
         profile = new this.profileModel({
           about: '',
+          avatarUrl: '',
+          orbitImageLightUrl: '',
+          orbitImageDarkUrl: '',
           experience: [],
           education: [],
           languages: [],

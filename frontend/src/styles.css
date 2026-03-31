@@ -16,6 +16,7 @@
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --modal-overlay-bg: rgba(0, 0, 0, 0.85);
   --modal-bg: #0f172a; /* Slate 900 */
+  --custom-hover-cursor: default;
 }
 
 body.light-mode {
@@ -65,6 +66,102 @@ a {
   color: inherit;
   text-decoration: none;
   transition: var(--transition);
+}
+
+a,
+button,
+[role="button"],
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+select,
+summary,
+.tab-btn,
+.glow-btn,
+.ghost-btn,
+.menu-toggle,
+.action-btn {
+  cursor: pointer !important;
+}
+
+a:hover,
+a:focus,
+a:active,
+button:hover,
+button:focus,
+button:active,
+[role="button"]:hover,
+[role="button"]:focus,
+[role="button"]:active,
+.tab-btn:hover,
+.tab-btn:focus,
+.tab-btn:active,
+.glow-btn:hover,
+.glow-btn:focus,
+.glow-btn:active,
+.ghost-btn:hover,
+.ghost-btn:focus,
+.ghost-btn:active,
+.menu-toggle:hover,
+.menu-toggle:focus,
+.menu-toggle:active,
+.action-btn:hover,
+.action-btn:focus,
+.action-btn:active {
+  cursor: pointer !important;
+}
+
+a:hover,
+a:focus,
+a:active,
+button:hover,
+button:focus,
+button:active,
+[role="button"]:hover,
+[role="button"]:focus,
+[role="button"]:active,
+.tab-btn:hover,
+.tab-btn:focus,
+.tab-btn:active,
+.glow-btn:hover,
+.glow-btn:focus,
+.glow-btn:active,
+.ghost-btn:hover,
+.ghost-btn:focus,
+.ghost-btn:active,
+.menu-toggle:hover,
+.menu-toggle:focus,
+.menu-toggle:active,
+.action-btn:hover,
+.action-btn:focus,
+.action-btn:active {
+  cursor: pointer !important;
+}
+
+/* Reliable custom cursor overlay using uploaded image */
+.custom-cursor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 92px;
+  transform: translate3d(-200px, -200px, 0);
+  opacity: 0;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.08s linear;
+  will-change: transform, opacity;
+}
+
+.custom-cursor-overlay.visible {
+  opacity: 1;
+}
+
+.custom-cursor-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(34, 211, 238, 0.35));
 }
 
 .glass {
